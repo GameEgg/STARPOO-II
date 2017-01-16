@@ -14,6 +14,9 @@ public class GameLoader : MonoBehaviour {
     [SerializeField]
     AudioClip bgm;
 
+    [SerializeField]
+    LogWindow[] logWindows; 
+
     /// <summary>
     /// FleetContainer의 fleets를 참고로 ShipRenderer들을 생성합니다.
     /// </summary>
@@ -33,6 +36,7 @@ public class GameLoader : MonoBehaviour {
                 shipView.InitWithShip(ship);
                 shipView.transform.SetParent(gameRenderer);
             }
+            logWindows[i].Init(fleet.script);
         }
     }
 

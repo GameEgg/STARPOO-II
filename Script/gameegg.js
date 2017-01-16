@@ -50,6 +50,7 @@ function update(){
 		shipUpdate(myShips[i]);
 	}
 	t++;
+	llog(t);
 	updateAllMia();
 }
 

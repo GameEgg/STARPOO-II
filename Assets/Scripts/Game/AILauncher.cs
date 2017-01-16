@@ -143,6 +143,7 @@ public class AILauncher : MonoBehaviour {
     #region JSFunctions
     public void Log(string str)
     {
+        GameEvents.onLog.Invoke(_fleet.script,str);
         Debug.Log("JS LOG : " + str);
     }
     public double Cos(double v)

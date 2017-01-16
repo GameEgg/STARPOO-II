@@ -28,4 +28,9 @@ public static class GameEvents
     /// 파괴된 함선
     /// </summary>
     public static ShipEvent onShipDestroyed = new ShipEvent();
+
+    /// <summary>
+    /// 로그 쏜 스크립트, 내용
+    /// </summary>
+    public static ScriptStringEvent onLog = new ScriptStringEvent();
 }

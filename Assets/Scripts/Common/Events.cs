@@ -20,3 +20,4 @@ public class ChatMessageEvent : UnityEvent<ChatMessage> { }
 public class NetworkErrorEvent : UnityEvent<NetworkError> { }
 
 public class ClientEvent : UnityEvent<Client> { }
+public class ScriptStringEvent : UnityEvent<AIScript, string> { };
