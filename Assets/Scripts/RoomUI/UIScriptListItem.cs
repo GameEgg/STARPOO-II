@@ -67,7 +67,8 @@ public class UIScriptListItem : MonoBehaviour {
             nameText.text = "";
         if (authorText != null)
             authorText.text = "";
-        stateAnim.SetBool("Selected", false);
+        if(stateAnim != null)
+            stateAnim.SetBool("Selected", false);
         if (btn != null)
             btn.interactable = false;
     }
