@@ -263,11 +263,6 @@ public class UIResult : MonoBehaviour
             SetGraphWitdh(player2RestHPGraph, restHPWidth);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void ClickExitBtn()
     {
