@@ -50,7 +50,9 @@ public class TransferTCP {
         {
             Debug.Log("isServer = "+ NetworkVariables.isServer);
             if (NetworkVariables.isServer){
-                AcceptClient();
+                if(acceptClient){
+                    AcceptClient();
+                }
 
                 for(int i = clients.Count - 1; i >= 0; --i){
                     var client = clients[i];
@@ -175,6 +177,8 @@ public class TransferTCP {
 
     public void ResumeAcceptConnecting(){
         acceptClient = true;
+        socketAsServer = new Socket(AddressFamily.InterNetwork,SocketType.Stream,ProtocolType.Tcp);
+        socketAsServer.Bind(new IPEndPoint(IPAddress.Any,NetworkConsts.port));
         socketAsServer.Listen(NetworkConsts.maxConnection);
     }
 

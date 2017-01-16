@@ -276,12 +276,13 @@ public class UIResult : MonoBehaviour
             fleetHistory.shipHistorys.Clear();
         }
         BattleHistory.fleetHistorys.Clear();
-        
+
         SceneManager.LoadScene("Room");
 
         if (NetworkVariables.isServer && NetworkVariables.isNetwork)
         {
             NetworkManager.instance.EndGame();
+            NetworkEvents.onGameEnd.Invoke();
         }
     }
 

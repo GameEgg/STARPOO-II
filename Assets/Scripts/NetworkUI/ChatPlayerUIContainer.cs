@@ -12,8 +12,11 @@ public class ChatPlayerUIContainer : MonoBehaviour {
     int childCount;
     RectTransform rt;
 
+    bool isDirty;
+
     void Start()
     {
+        isDirty = false;
         rt = GetComponent<RectTransform>();
         NetworkEvents.onPlayerOut.AddListener(OnPlayerOut);
     }
@@ -39,7 +42,7 @@ public class ChatPlayerUIContainer : MonoBehaviour {
         if (childUIs.ContainsKey(playerid))
         {
             childUIs.Remove(playerid);
-            UpdateLayout();
+            isDirty = true;
         }
     }
 
@@ -50,6 +53,13 @@ public class ChatPlayerUIContainer : MonoBehaviour {
         foreach(var ui in childUIs.Values)
         {
             ui.ExpendHeight(height);
+        }
+    }
+
+    void Update(){
+        if(isDirty){
+            UpdateLayout();
+            isDirty = false;
         }
     }
 
