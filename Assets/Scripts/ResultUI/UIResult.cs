@@ -154,11 +154,6 @@ public class UIResult : MonoBehaviour
             Debug.Log("[RestHP] Blue percent : " + percentageBlue);
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     void ClickExitBtn()
     {
@@ -167,12 +162,13 @@ public class UIResult : MonoBehaviour
             fleetHistory.shipHistorys.Clear();
         }
         BattleHistory.fleetHistorys.Clear();
-        
+
         SceneManager.LoadScene("Room");
 
         if (NetworkVariables.isServer && NetworkVariables.isNetwork)
         {
             NetworkManager.instance.EndGame();
+            NetworkEvents.onGameEnd.Invoke();
         }
     }
 

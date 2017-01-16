@@ -136,6 +136,7 @@ public class UIMain : MonoBehaviour {
     {
         if (inputFieldNetworkAddress.text != string.Empty && inputFieldNetworkAddress.text != null)
         {
+            PlayerPrefs.SetString("ip",inputFieldNetworkAddress.text);
             NetworkManager.instance.Connect(inputFieldNetworkAddress.text);
         }
         else
@@ -190,5 +191,7 @@ public class UIMain : MonoBehaviour {
         GameSettings.nickName = PlayerPrefs.GetString("nickName", string.Empty);
         nickName.text = "Player : " + GameSettings.nickName;
         GameVariables.me.name = GameSettings.nickName;
+
+        inputFieldNetworkAddress.text = PlayerPrefs.GetString("ip");
     } 
 }
