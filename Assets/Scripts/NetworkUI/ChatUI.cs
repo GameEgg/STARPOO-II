@@ -52,11 +52,13 @@ public class ChatUI : MonoBehaviour {
         chatPlayerUI.gameObject.SetActive(true);
         chatPlayerUI.Init(player, isRightPanel);
         parent.Add(chatPlayerUI);
+        Debug.Log("network player join : "+player.networkId);
     }
 
     void OnPlayerOut(byte id)
     {
         deathNode.Add(id);
+        Debug.Log("network player out : "+id);
     }
 
     void Update()

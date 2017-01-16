@@ -36,7 +36,7 @@ public class NetworkPacketHandler
 
     void HandlePGameEnd(byte[] data)
     {
-
+        NetworkEvents.onGameEnd.Invoke();
     }
 
     void HandlePPlayGame(byte[] data)
