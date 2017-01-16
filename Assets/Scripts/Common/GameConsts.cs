@@ -7,6 +7,8 @@ public static class GameConsts
     public const float shipCollisionRadius = 1;
     public const float radarCollisionRadius = 14;
 
+    public const float preDelay = 2;
+
     public const int minShipCount = 1;
     public const int maxShipCount = 25;
     public const float maxShipHp = 5;

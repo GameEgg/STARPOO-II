@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class Graph : MonoBehaviour
 {
     [SerializeField]
-    Text name;
+    Text nameText;
     [SerializeField]
     Image graphRed;
     [SerializeField]
     Image graphBlue;
 
     // Use this for initialization
-    void Start () {
-		
+    void Awake () {
+        nameText.color = new Color(1,1,1,0);
 	}
 	
 	// Update is called once per frame

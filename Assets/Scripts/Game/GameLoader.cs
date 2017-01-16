@@ -42,7 +42,7 @@ public class GameLoader : MonoBehaviour {
     void InitGameVariables()
     {
         GameVariables.groundSize.value = GameConsts.basicGroundSize;
-        GameVariables.groundChangeTimer.value = GameConsts.basicGroundTimer;
+        GameVariables.groundChangeTimer.value = GameConsts.basicGroundTimer + GameConsts.preDelay;
         GameVariables.updateBlocked = true;
     }
 
