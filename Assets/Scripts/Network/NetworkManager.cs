@@ -44,12 +44,14 @@ public class NetworkManager : MonoBehaviour {
     {
         var packet = new pEmpty();
         SendPacket(packet.Serialize(PacketType.pGameEnd));
+        TransferTCP.instance.ResumeAcceptConnecting();
     }
 
     public void PlayGame()
     {
         var packet = new pEmpty();
         SendPacket(packet.Serialize(PacketType.pPlayGame));
+        TransferTCP.instance.PauseAcceptConnecting();
     }
 
     public void ChangeShipAmount(byte amount)
