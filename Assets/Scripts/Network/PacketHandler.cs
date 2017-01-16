@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NetworkPacketHandler
 {
@@ -20,12 +21,19 @@ public class NetworkPacketHandler
         handlers.Add((byte)PacketType.pPlayGame, HandlePPlayGame);
         handlers.Add((byte)PacketType.pGameEnd, HandlePGameEnd);
         handlers.Add((byte)PacketType.pShipAmount, HandlePShipAmount);
+        handlers.Add((byte)PacketType.pKick, HandlePKick);
     }
 
     public void Handle(byte packetType, byte[] data)
     {
         Debug.LogWarning("got network event : " + ((PacketType)packetType).ToString());
         handlers[packetType](data);
+    }
+
+    void HandlePKick(byte[] data)
+    {
+        SceneManager.LoadScene("Main");
+        NoticeUI.instance.ShowMessage("Fail to connect");
     }
 
     void HandlePShipAmount(byte[] data)

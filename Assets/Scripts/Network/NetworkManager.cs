@@ -124,8 +124,10 @@ public class NetworkManager : MonoBehaviour {
         SceneManager.LoadScene("Room");
         var success = TransferTCP.instance.Connect(url);
 
-        if(success)
+        if(success){
             TransferTCP.instance.onServerClosed.AddListener(OnServerClosed);
+            NetworkEvents.onGameEnd.AddListener(OnGameEnd);
+        }
         else
         {
             NoticeUI.instance.ShowMessage("Fail to connect");
@@ -142,6 +144,12 @@ public class NetworkManager : MonoBehaviour {
         NetworkVariables.isClient = false;
         TransferTCP.instance.Disconnect();
         TransferTCP.instance.onServerClosed.RemoveListener(OnServerClosed);
+        NetworkEvents.onGameEnd.RemoveListener(OnGameEnd);
+    }
+
+    void OnGameEnd()
+    {
+        SceneManager.LoadScene("Room");
     }
 
     void OnServerClosed()

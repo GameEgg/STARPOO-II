@@ -7,7 +7,7 @@ using UnityEngine;
 
 public enum PacketType
 {
-    pJoin, pNetworkId, pConnect, pChat, pDisconnect, pSendScript, pCancelScript, pPlayGame, pShipAmount, pGameEnd
+    pJoin, pNetworkId, pConnect, pChat, pDisconnect, pSendScript, pCancelScript, pPlayGame, pShipAmount, pGameEnd, pKick
 }
 
 

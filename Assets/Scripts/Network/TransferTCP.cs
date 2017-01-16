@@ -32,6 +32,7 @@ public class TransferTCP {
     Socket socketAsServer;
     Socket socketAsClient;
 
+    bool acceptClient;
     List<Client> clients;
     byte[] buffer = new byte[1024*20];
 
@@ -150,9 +151,8 @@ public class TransferTCP {
         threadRunning = true;
 
         thread = new Thread(new ThreadStart(Dispatch));
-        Debug.Log("start thread");
         thread.Start();
-        Debug.Log("start server");
+        acceptClient = true;
     }
 
     public void StopServer(){
@@ -165,12 +165,25 @@ public class TransferTCP {
         socketAsServer = null;
         threadRunning = false;
         thread = null;
+        acceptClient = false;
+    }
+
+    public void PauseAcceptConnecting(){
+        acceptClient = false;
+        socketAsServer.Close();
+    }
+
+    public void ResumeAcceptConnecting(){
+        acceptClient = true;
+        socketAsServer.Listen(NetworkConsts.maxConnection);
     }
 
     public bool Connect(string address)
     {
         socketAsClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socketAsClient.NoDelay = true;
+        socketAsClient.SendTimeout = 2000;
+        socketAsClient.ReceiveTimeout = 2000;
         try {
             socketAsClient.Connect(address, NetworkConsts.port);
         }
@@ -210,6 +223,11 @@ public class TransferTCP {
             clients.Add(client);
             onNewClientJoin.Invoke(client);
             Debug.Log("client connected! : "+client.networkId);
+            
+            if(!acceptClient){
+                client.sendQueue.Enqueue(new pEmpty().Serialize(PacketType.pKick));
+            }
+
         }
     }
 }
