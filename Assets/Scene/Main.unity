@@ -534,7 +534,7 @@ MonoBehaviour:
   btnBackToIndex: {fileID: 604839433}
   btnRenameApply: {fileID: 1648711837}
   inputFieldNickname: {fileID: 752692028}
-  btnJoinToAddress: {fileID: 2037928472}
+  btnJoinToAddress: {fileID: 440566092}
   inputFieldNetworkAddress: {fileID: 1312274605}
   bgm: {fileID: 8300000, guid: dabe82abcbb71684891548f38d8c33cb, type: 3}
 --- !u!1 &438193670
