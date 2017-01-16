@@ -14,90 +14,18 @@ public class UIResult : MonoBehaviour
     [SerializeField]
     Button btnExit;
 
-    // Player 1
     [SerializeField]
-    Text player1Name;
-    [SerializeField]
-    GameObject player1HitRateGraph;
-    [SerializeField]
-    Image player1DamageGraph_Air;
-    [SerializeField]
-    Image player1DamageGraph_Enemy;
-    [SerializeField]
-    Image player1DamageGraph_Ally;
-    [SerializeField]
-    Image player1DamagedGraph_Wall;
-    [SerializeField]
-    Image player1DamagedGraph_Ally;
-    [SerializeField]
-    Image player1DamagedGraph_Enemy;
-    [SerializeField]
-    GameObject player1RestHPGraph;
+    Graph[] graphs;
 
     [SerializeField]
-    Text player1HitRate;
+    Color RedTeamColor;
     [SerializeField]
-    Text player1TotalDamage;
-    [SerializeField]
-    Text player1Damage_Air;
-    [SerializeField]
-    Text player1Damage_Enemy;
-    [SerializeField]
-    Text player1Damage_Ally;
-    [SerializeField]
-    Text player1TotalDamaged;
-    [SerializeField]
-    Text player1Damaged_Enemy;
-    [SerializeField]
-    Text player1Damaged_Ally;
-    [SerializeField]
-    Text player1Damaged_Wall;
-    [SerializeField]
-    Text player1RestHP;
-
-    // Player 2
-    [SerializeField]
-    Text player2Name;
-    [SerializeField]
-    GameObject player2HitRateGraph;
-    [SerializeField]
-    Image player2DamageGraph_Air;
-    [SerializeField]
-    Image player2DamageGraph_Enemy;
-    [SerializeField]
-    Image player2DamageGraph_Ally;
-    [SerializeField]
-    Image player2DamagedGraph_Wall;
-    [SerializeField]
-    Image player2DamagedGraph_Ally;
-    [SerializeField]
-    Image player2DamagedGraph_Enemy;
-    [SerializeField]
-    GameObject player2RestHPGraph;
+    Color BlueTeamColor;
 
     [SerializeField]
-    Text player2HitRate;
+    Text RedTeam_Name;
     [SerializeField]
-    Text player2TotalDamage;
-
-    [SerializeField]
-    Text player2Damage_Air;
-    [SerializeField]
-    Text player2Damage_Enemy;
-    [SerializeField]
-    Text player2Damage_Ally;
-
-    [SerializeField]
-    Text player2TotalDamaged;
-    [SerializeField]
-    Text player2Damaged_Enemy;
-    [SerializeField]
-    Text player2Damaged_Ally;
-    [SerializeField]
-    Text player2Damaged_Wall;
-
-    [SerializeField]
-    Text player2RestHP;
+    Text BlueTeam_Name;
 
     // Use this for initialization
     void Start () {
@@ -106,26 +34,34 @@ public class UIResult : MonoBehaviour
             btnExit.gameObject.SetActive(false);
 
         float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
-        float hitRate = 0;
-        float totalEnergy = 0;
-        float totalDamage = 0;
-        float damageToEnemy = 0;
-        float damageToAlly = 0;
-        float damageToWall = 0;
-        float totalDamaged = 0;
-        float damagedByEnemy = 0;
-        float damagedByAlly = 0;
-        float damagedByWall = 0;
-        float restHP = 0;
+        float RedTeam_hitRate = 0;
+        float RedTeam_totalEnergy = 0;
+        float RedTeam_totalDamage = 0;
+        float RedTeam_damageToEnemy = 0;
+        float RedTeam_damageToAlly = 0;
+        float RedTeam_damageToWall = 0;
+        float RedTeam_totalDamaged = 0;
+        float RedTeam_damagedByEnemy = 0;
+        float RedTeam_damagedByAlly = 0;
+        float RedTeam_damagedByWall = 0;
+        float RedTeam_restHP = 0;
 
-        float hitRateWidth = 0;
-        float damageToEnemyWidth = 0;
-        float damageToAllyWidth = 0;
-        float damageToWallWidth = 0;
-        float damagedByEnemyWidth = 0;
-        float damagedByAllyWidth = 0;
-        float damagedByWallWidth = 0;
-        float restHPWidth = 0;
+        float BlueTeam_hitRate = 0;
+        float BlueTeam_totalEnergy = 0;
+        float BlueTeam_totalDamage = 0;
+        float BlueTeam_damageToEnemy = 0;
+        float BlueTeam_damageToAlly = 0;
+        float BlueTeam_damageToWall = 0;
+        float BlueTeam_totalDamaged = 0;
+        float BlueTeam_damagedByEnemy = 0;
+        float BlueTeam_damagedByAlly = 0;
+        float BlueTeam_damagedByWall = 0;
+        float BlueTeam_restHP = 0;
+        
+        double percentageRed;
+        double percentageBlue;
+        string descriptionRed;
+        string descriptionBlue;
 
         InitMaxValuesInFleetHistory();
 
@@ -133,134 +69,89 @@ public class UIResult : MonoBehaviour
         if (BattleHistory.fleetHistorys.Count >= 2)
         {
             // Player 1
-            restHP = BattleHistory.fleetHistorys[0].restHP;
-            totalDamage = BattleHistory.fleetHistorys[0].totalDamage;
-            totalEnergy = BattleHistory.fleetHistorys[0].totalUseEnerge;
-            damageToEnemy = BattleHistory.fleetHistorys[0].damageToEnemy;
-            damageToAlly = BattleHistory.fleetHistorys[0].damageToAlly;
-            damageToWall = totalEnergy - totalDamage;
-
-            totalDamaged = totalHP - restHP;
-            damagedByEnemy = BattleHistory.fleetHistorys[0].damagedByEnemy;
-            damagedByAlly = BattleHistory.fleetHistorys[0].damagedByAlly;
-            damagedByWall = totalDamaged - damagedByEnemy - damagedByAlly;
-
-            player1Name.text = BattleHistory.fleetHistorys[0].fleet.name;
-            player1HitRate.text = Math.Round(BattleHistory.fleetHistorys[0].hitRate * 100, 2).ToString() + " %";
-            player1TotalDamage.text = totalEnergy.ToString();
-            FillTextAboutGraphValue(
-                player1Damage_Enemy,
-                Math.Round(damageToEnemy * 100 / totalEnergy, 1),
-                damageToEnemy);
-            FillTextAboutGraphValue(
-                player1Damage_Ally,
-                Math.Round(damageToAlly * 100 / totalEnergy, 1),
-                damageToAlly);
-            FillTextAboutGraphValue(
-                player1Damage_Air,
-                Math.Round(damageToWall * 100 / totalEnergy, 1),
-                damageToWall);
-            player1TotalDamaged.text = totalDamaged.ToString();
-            FillTextAboutGraphValue(
-                player1Damaged_Enemy,
-                Math.Round(damagedByEnemy * 100 / totalDamaged, 1),
-                damagedByEnemy);
-            FillTextAboutGraphValue(
-                player1Damaged_Ally,
-                Math.Round(damagedByAlly * 100 / totalDamaged, 1),
-                damagedByAlly);
-            FillTextAboutGraphValue(
-                player1Damaged_Wall,
-                Math.Round(damagedByWall * 100 / totalDamaged, 1),
-                damagedByWall);
-            player1RestHP.text = Math.Round(restHP, 4).ToString() + " ( " +
-                Math.Round((restHP * 100 / (GameConsts.maxShipHp * GameSettings.shipCount)), 4).ToString() + " % )";
-
-            hitRateWidth = CalculateHitRate(BattleHistory.fleetHistorys[0]);
-            damageToEnemyWidth = CalculateDamage(damageToEnemy);
-            damageToAllyWidth = CalculateDamage(damageToAlly);
-            damageToWallWidth = CalculateDamage(damageToWall);
-            damagedByEnemyWidth = CalculateDamaged(damagedByEnemy);
-            damagedByAllyWidth = CalculateDamaged(damagedByAlly);
-            damagedByWallWidth = CalculateDamaged(damagedByWall);
-            player1TotalDamage.rectTransform.sizeDelta = new Vector2(damageToEnemyWidth + damageToAllyWidth + damageToWallWidth, 20);
-            player1TotalDamaged.rectTransform.sizeDelta = new Vector2(damagedByEnemyWidth + damagedByAllyWidth + damagedByWallWidth, 20);
-            restHPWidth = CalculateRestHP(BattleHistory.fleetHistorys[0]);
-
-            SetGraphWitdh(player1HitRateGraph, hitRateWidth);
-            SetGraphWitdh(player1DamageGraph_Enemy, damageToEnemyWidth);
-            SetGraphWitdh(player1DamageGraph_Ally, damageToAllyWidth);
-            SetGraphWitdh(player1DamageGraph_Air, damageToWallWidth);
-            SetGraphWitdh(player1DamagedGraph_Enemy, damagedByEnemyWidth);
-            SetGraphWitdh(player1DamagedGraph_Ally, damagedByAllyWidth);
-            SetGraphWitdh(player1DamagedGraph_Wall, damagedByWallWidth);
-            SetGraphWitdh(player1RestHPGraph, restHPWidth);
+            RedTeam_Name.text = BattleHistory.fleetHistorys[0].fleet.name;
+            RedTeam_restHP = BattleHistory.fleetHistorys[0].restHP;
+            RedTeam_totalDamage = BattleHistory.fleetHistorys[0].totalDamage;
+            RedTeam_totalEnergy = BattleHistory.fleetHistorys[0].totalUseEnerge;
+            RedTeam_damageToEnemy = BattleHistory.fleetHistorys[0].damageToEnemy;
+            RedTeam_damageToAlly = BattleHistory.fleetHistorys[0].damageToAlly;
+            RedTeam_damageToWall = RedTeam_totalEnergy - RedTeam_totalDamage;
+            RedTeam_totalDamaged = totalHP - RedTeam_restHP;
+            RedTeam_damagedByEnemy = BattleHistory.fleetHistorys[0].damagedByEnemy;
+            RedTeam_damagedByAlly = BattleHistory.fleetHistorys[0].damagedByAlly;
+            RedTeam_damagedByWall = RedTeam_totalDamaged - RedTeam_damagedByEnemy - RedTeam_damagedByAlly;
 
             // Player 2
-            restHP = BattleHistory.fleetHistorys[1].restHP;
+            BlueTeam_Name.text = BattleHistory.fleetHistorys[1].fleet.name;
+            BlueTeam_restHP = BattleHistory.fleetHistorys[1].restHP;
+            BlueTeam_totalDamage = BattleHistory.fleetHistorys[1].totalDamage;
+            BlueTeam_totalEnergy = BattleHistory.fleetHistorys[1].totalUseEnerge;
+            BlueTeam_damageToEnemy = BattleHistory.fleetHistorys[1].damageToEnemy;
+            BlueTeam_damageToAlly = BattleHistory.fleetHistorys[1].damageToAlly;
+            BlueTeam_damageToWall = BlueTeam_totalEnergy - BlueTeam_totalDamage;
+            BlueTeam_totalDamaged = totalHP - BlueTeam_restHP;
+            BlueTeam_damagedByEnemy = BattleHistory.fleetHistorys[1].damagedByEnemy;
+            BlueTeam_damagedByAlly = BattleHistory.fleetHistorys[1].damagedByAlly;
+            BlueTeam_damagedByWall = BlueTeam_totalDamaged - BlueTeam_damagedByEnemy - BlueTeam_damagedByAlly;           
 
-            totalDamage = BattleHistory.fleetHistorys[1].totalDamage;
-            totalEnergy = BattleHistory.fleetHistorys[1].totalUseEnerge;
-            damageToEnemy = BattleHistory.fleetHistorys[1].damageToEnemy;
-            damageToAlly = BattleHistory.fleetHistorys[1].damageToAlly;
-            damageToWall = totalEnergy - totalDamage;
+            // HitRate
+            descriptionRed = Math.Round(BattleHistory.fleetHistorys[0].hitRate * 100, 2).ToString() + " %";
+            descriptionBlue = Math.Round(BattleHistory.fleetHistorys[1].hitRate * 100, 2).ToString() + " %";
+            graphs[0].SetGraphValue(
+                Math.Round(Convert.ToDouble(BattleHistory.fleetHistorys[0].hitRate), 2),
+                Math.Round(Convert.ToDouble(BattleHistory.fleetHistorys[1].hitRate), 2),
+                descriptionRed,
+                descriptionBlue, 
+                RedTeamColor, 
+                BlueTeamColor);
 
-            totalDamaged = totalHP - restHP;
-            damagedByEnemy = BattleHistory.fleetHistorys[1].damagedByEnemy;
-            damagedByAlly = BattleHistory.fleetHistorys[1].damagedByAlly;
-            damagedByWall = totalDamaged - damagedByEnemy - damagedByAlly;
+            // Damage to Enemy
+            percentageRed = (RedTeam_damageToEnemy == 0) ? 0 : Math.Round(RedTeam_damageToEnemy / RedTeam_totalEnergy, 4);
+            percentageBlue = (BlueTeam_damageToEnemy == 0) ? 0 : Math.Round(BlueTeam_damageToEnemy / BlueTeam_totalEnergy, 4);
+            descriptionRed = percentageRed * 100 + "% (" + RedTeam_damageToEnemy.ToString() + ")";
+            descriptionBlue = percentageBlue * 100+ "% (" + BlueTeam_damageToEnemy.ToString() + ")";
+            graphs[1].SetGraphValue(
+                percentageRed,
+                percentageBlue,
+                descriptionRed,
+                descriptionBlue,
+                RedTeamColor,
+                BlueTeamColor);
 
-            player2Name.text = BattleHistory.fleetHistorys[1].fleet.name;
-            player2HitRate.text = Math.Round(BattleHistory.fleetHistorys[1].hitRate * 100, 2).ToString() + " %";
-            player2TotalDamage.text = totalEnergy.ToString();
-            FillTextAboutGraphValue(
-                player2Damage_Enemy,
-                Math.Round(damageToEnemy * 100 / totalEnergy, 1),
-                damageToEnemy);
-            FillTextAboutGraphValue(
-                player2Damage_Ally,
-                Math.Round(damageToAlly * 100 / totalEnergy, 1),
-                damageToAlly);
-            FillTextAboutGraphValue(
-                player2Damage_Air,
-                Math.Round(damageToWall * 100 / totalEnergy, 1),
-                damageToWall);
+            // Damage to Ally
+            percentageRed = (RedTeam_damageToAlly == 0) ? 0 : Math.Round(RedTeam_damageToAlly / RedTeam_totalEnergy, 4);
+            percentageBlue = (BlueTeam_damageToAlly == 0) ? 0 : Math.Round(BlueTeam_damageToAlly / BlueTeam_totalEnergy, 4);
+            descriptionRed = percentageRed * 100 + "% (" + RedTeam_damageToAlly.ToString() + ")";
+            descriptionBlue = percentageBlue * 100 + "% (" + BlueTeam_damageToAlly.ToString() + ")";
+            graphs[2].SetGraphValue(
+                percentageRed,
+                percentageBlue,
+                descriptionRed,
+                descriptionBlue,
+                RedTeamColor,
+                BlueTeamColor);
+            Debug.Log("[Damage To Ally] Red : " + percentageRed);
+            Debug.Log("[Damage To Ally] Red : " + descriptionRed);
 
-            player2TotalDamaged.text = totalDamaged.ToString();
-            FillTextAboutGraphValue(
-                player2Damaged_Enemy, 
-                Math.Round(damagedByEnemy * 100 / totalDamaged, 1), 
-                damagedByEnemy);
-            FillTextAboutGraphValue(
-                player2Damaged_Ally,
-                Math.Round(damagedByAlly * 100 / totalDamaged, 1),
-                damagedByAlly);
-            FillTextAboutGraphValue(
-                player2Damaged_Wall,
-                Math.Round(damagedByWall * 100 / totalDamaged, 1),
-                damagedByWall);
-            player2RestHP.text = Math.Round(restHP, 4).ToString() + " ( " +
-                Math.Round((restHP * 100 / (GameConsts.maxShipHp * GameSettings.shipCount)), 4).ToString() + " % )";
 
-            hitRateWidth = CalculateHitRate(BattleHistory.fleetHistorys[1]);
-            damageToEnemyWidth = CalculateDamage(damageToEnemy);
-            damageToAllyWidth = CalculateDamage(damageToAlly);
-            damageToWallWidth = CalculateDamage(damageToWall);
-            damagedByEnemyWidth = CalculateDamaged(damagedByEnemy);
-            damagedByAllyWidth = CalculateDamaged(damagedByAlly);
-            damagedByWallWidth = CalculateDamaged(damagedByWall);
-            player2TotalDamage.rectTransform.sizeDelta = new Vector2(damageToEnemyWidth + damageToAllyWidth + damageToWallWidth, 20);
-            player2TotalDamaged.rectTransform.sizeDelta = new Vector2(damagedByEnemyWidth + damagedByAllyWidth + damagedByWallWidth, 20);
-            restHPWidth = CalculateRestHP(BattleHistory.fleetHistorys[1]);
+            
+            // RestHP
+            percentageRed = (RedTeam_restHP == 0) ? 0 : Math.Round((RedTeam_restHP / (GameConsts.maxShipHp * GameSettings.shipCount)), 4);
+            percentageBlue = (BlueTeam_restHP == 0) ? 0 : Math.Round((BlueTeam_restHP / (GameConsts.maxShipHp * GameSettings.shipCount)), 4);
+            descriptionRed = (percentageRed * 100).ToString() + "% (" + Math.Round(RedTeam_restHP, 4).ToString() + ")";
+            descriptionBlue = (percentageBlue * 100).ToString() + "% (" + Math.Round(BlueTeam_restHP, 4).ToString() + ")";
+            graphs[3].SetGraphValue(
+                percentageRed,
+                percentageBlue,
+                descriptionRed,
+                descriptionBlue,
+                RedTeamColor,
+                BlueTeamColor);
 
-            SetGraphWitdh(player2HitRateGraph, hitRateWidth);
-            SetGraphWitdh(player2DamageGraph_Enemy, damageToEnemyWidth);
-            SetGraphWitdh(player2DamageGraph_Ally, damageToAllyWidth);
-            SetGraphWitdh(player2DamageGraph_Air, damageToWallWidth);
-            SetGraphWitdh(player2DamagedGraph_Enemy, damagedByEnemyWidth);
-            SetGraphWitdh(player2DamagedGraph_Ally, damagedByAllyWidth);
-            SetGraphWitdh(player2DamagedGraph_Wall, damagedByWallWidth);
-            SetGraphWitdh(player2RestHPGraph, restHPWidth);
+            Debug.Log("[RestHP] Red : " + RedTeam_restHP);
+            Debug.Log("[RestHP] Red percent : " + percentageRed);
+            Debug.Log("[RestHP] Blue : " + BlueTeam_restHP);
+            Debug.Log("[RestHP] Blue percent : " + percentageBlue);
         }
     }
 	
