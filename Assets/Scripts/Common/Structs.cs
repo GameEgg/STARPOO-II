@@ -100,7 +100,7 @@ public class Ship : IComparable<Ship>
         }
     }
     public float rotSpd;
-    public O<float> delay = new O<float>(preDelay);
+    public O<float> delay = new O<float>(GameConsts.preDelay);
     public O<bool> isCharging = new O<bool>(false);
     public float chargedPower;
     public float shootingPower;
