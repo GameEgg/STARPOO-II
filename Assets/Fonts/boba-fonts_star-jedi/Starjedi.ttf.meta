@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 7afe391f25435b241bdb9cd3eba3a406
+timeCreated: 1478422598
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Star Jedi
+  fontNames:
+  - Star Jedi
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 074e37161e98bdb49961561148ac0502, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

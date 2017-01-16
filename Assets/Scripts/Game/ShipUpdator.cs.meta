@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cad261dd58d68184f8215a4da785916f
+timeCreated: 1478768606
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - shipPhysicsMaterial: {fileID: 6200000, guid: 10320daed361aea479b27851aac5319c,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

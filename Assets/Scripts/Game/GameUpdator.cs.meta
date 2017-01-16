@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 374af76bf540789469092b9dc9bc33a2
+timeCreated: 1478766753
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - gamePhysicsField: {instanceID: 0}
+  - shipPhysicsMaterial: {fileID: 6200000, guid: 10320daed361aea479b27851aac5319c,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
