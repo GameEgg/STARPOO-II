@@ -106,10 +106,10 @@ public class UIResult : MonoBehaviour
                 BlueTeamColor);
 
             // Damage to Enemy
-            percentageRed = (RedTeam_damageToEnemy == 0) ? 0 : Math.Round(RedTeam_damageToEnemy / RedTeam_totalEnergy, 4);
-            percentageBlue = (BlueTeam_damageToEnemy == 0) ? 0 : Math.Round(BlueTeam_damageToEnemy / BlueTeam_totalEnergy, 4);
-            descriptionRed = percentageRed * 100 + "% (" + RedTeam_damageToEnemy.ToString() + ")";
-            descriptionBlue = percentageBlue * 100+ "% (" + BlueTeam_damageToEnemy.ToString() + ")";
+            percentageRed = (RedTeam_totalEnergy == 0) ? 0 : Math.Round(RedTeam_damageToEnemy / RedTeam_totalEnergy, 4);
+            percentageBlue = (BlueTeam_totalEnergy == 0) ? 0 : Math.Round(BlueTeam_damageToEnemy / BlueTeam_totalEnergy, 4);
+            descriptionRed = percentageRed * 100 + "%";
+            descriptionBlue = percentageBlue * 100 + "%";
             graphs[1].SetGraphValue(
                 percentageRed,
                 percentageBlue,
@@ -119,10 +119,10 @@ public class UIResult : MonoBehaviour
                 BlueTeamColor);
 
             // Damage to Ally
-            percentageRed = (RedTeam_damageToAlly == 0) ? 0 : Math.Round(RedTeam_damageToAlly / RedTeam_totalEnergy, 4);
-            percentageBlue = (BlueTeam_damageToAlly == 0) ? 0 : Math.Round(BlueTeam_damageToAlly / BlueTeam_totalEnergy, 4);
-            descriptionRed = percentageRed * 100 + "% (" + RedTeam_damageToAlly.ToString() + ")";
-            descriptionBlue = percentageBlue * 100 + "% (" + BlueTeam_damageToAlly.ToString() + ")";
+            percentageRed = (RedTeam_totalEnergy == 0) ? 0 : Math.Round(RedTeam_damageToAlly / RedTeam_totalEnergy, 4);
+            percentageBlue = (BlueTeam_totalEnergy == 0) ? 0 : Math.Round(BlueTeam_damageToAlly / BlueTeam_totalEnergy, 4);
+            descriptionRed = percentageRed * 100 + "%";
+            descriptionBlue = percentageBlue * 100 + "%";
             graphs[2].SetGraphValue(
                 percentageRed,
                 percentageBlue,
@@ -130,16 +130,12 @@ public class UIResult : MonoBehaviour
                 descriptionBlue,
                 RedTeamColor,
                 BlueTeamColor);
-            Debug.Log("[Damage To Ally] Red : " + percentageRed);
-            Debug.Log("[Damage To Ally] Red : " + descriptionRed);
-
-
-            
+                        
             // RestHP
             percentageRed = (RedTeam_restHP == 0) ? 0 : Math.Round((RedTeam_restHP / (GameConsts.maxShipHp * GameSettings.shipCount)), 4);
             percentageBlue = (BlueTeam_restHP == 0) ? 0 : Math.Round((BlueTeam_restHP / (GameConsts.maxShipHp * GameSettings.shipCount)), 4);
-            descriptionRed = (percentageRed * 100).ToString() + "% (" + Math.Round(RedTeam_restHP, 4).ToString() + ")";
-            descriptionBlue = (percentageBlue * 100).ToString() + "% (" + Math.Round(BlueTeam_restHP, 4).ToString() + ")";
+            descriptionRed = (percentageRed * 100).ToString() + "%";
+            descriptionBlue = (percentageBlue * 100).ToString() + "%";
             graphs[3].SetGraphValue(
                 percentageRed,
                 percentageBlue,
@@ -147,11 +143,6 @@ public class UIResult : MonoBehaviour
                 descriptionBlue,
                 RedTeamColor,
                 BlueTeamColor);
-
-            Debug.Log("[RestHP] Red : " + RedTeam_restHP);
-            Debug.Log("[RestHP] Red percent : " + percentageRed);
-            Debug.Log("[RestHP] Blue : " + BlueTeam_restHP);
-            Debug.Log("[RestHP] Blue percent : " + percentageBlue);
         }
     }
 
