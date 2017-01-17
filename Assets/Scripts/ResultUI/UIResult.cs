@@ -34,7 +34,6 @@ public class UIResult : MonoBehaviour
             btnExit.gameObject.SetActive(false);
 
         float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
-        float RedTeam_hitRate = 0;
         float RedTeam_totalEnergy = 0;
         float RedTeam_totalDamage = 0;
         float RedTeam_damageToEnemy = 0;
@@ -45,8 +44,7 @@ public class UIResult : MonoBehaviour
         float RedTeam_damagedByAlly = 0;
         float RedTeam_damagedByWall = 0;
         float RedTeam_restHP = 0;
-
-        float BlueTeam_hitRate = 0;
+        
         float BlueTeam_totalEnergy = 0;
         float BlueTeam_totalDamage = 0;
         float BlueTeam_damageToEnemy = 0;
@@ -62,8 +60,6 @@ public class UIResult : MonoBehaviour
         double percentageBlue;
         string descriptionRed;
         string descriptionBlue;
-
-        InitMaxValuesInFleetHistory();
 
         // TODO : Need Code Refactoring about duplicate code part
         if (BattleHistory.fleetHistorys.Count >= 2)
@@ -132,8 +128,8 @@ public class UIResult : MonoBehaviour
                 BlueTeamColor);
                         
             // RestHP
-            percentageRed = (RedTeam_restHP == 0) ? 0 : Math.Round((RedTeam_restHP / (GameConsts.maxShipHp * GameSettings.shipCount)), 4);
-            percentageBlue = (BlueTeam_restHP == 0) ? 0 : Math.Round((BlueTeam_restHP / (GameConsts.maxShipHp * GameSettings.shipCount)), 4);
+            percentageRed = (RedTeam_restHP == 0) ? 0 : Math.Round((RedTeam_restHP / totalHP), 4);
+            percentageBlue = (BlueTeam_restHP == 0) ? 0 : Math.Round((BlueTeam_restHP / totalHP), 4);
             descriptionRed = (percentageRed * 100).ToString() + "%";
             descriptionBlue = (percentageBlue * 100).ToString() + "%";
             graphs[3].SetGraphValue(
@@ -160,70 +156,6 @@ public class UIResult : MonoBehaviour
         {
             NetworkManager.instance.EndGame();
             NetworkEvents.onGameEnd.Invoke();
-        }
-    }
-
-    public float CalculateHitRate(FleetHistory fleetHistory)
-    {
-        float variable = fleetHistory.hitRate;
-        
-        return RESULT_GRAPH_MAX_WIDTH * variable;
-    }
-
-    public float CalculateDamage(float damage)
-    {
-        float variable = damage / BattleHistory.maxTotalEnergy;
-        return RESULT_GRAPH_MAX_WIDTH * variable;
-    }
-
-    public float CalculateTotalEnergy(FleetHistory fleetHistory)
-    {
-        float variable = fleetHistory.totalUseEnerge / BattleHistory.maxTotalEnergy;
-        return RESULT_GRAPH_MAX_WIDTH * variable;
-    }
-
-    public float CalculateDamaged(float damaged)
-    {
-        float variable = damaged / ((GameConsts.maxShipHp * GameSettings.shipCount)); // - fleetHistory.restHP
-        return RESULT_GRAPH_MAX_WIDTH * variable;
-    }
-
-    public float CalculateRestHP(FleetHistory fleetHistory)
-    {
-        float variable = fleetHistory.restHP / (GameConsts.maxShipHp * GameSettings.shipCount);
-        return RESULT_GRAPH_MAX_WIDTH * variable;
-    }
-
-    public void InitMaxValuesInFleetHistory()
-    {
-        foreach (FleetHistory fleetHistory in BattleHistory.fleetHistorys)
-        {
-            if (BattleHistory.maxTotalDamage < fleetHistory.totalDamage)
-                BattleHistory.maxTotalDamage = fleetHistory.totalDamage;
-            if (BattleHistory.maxTotalEnergy < fleetHistory.totalUseEnerge)
-                BattleHistory.maxTotalEnergy = fleetHistory.totalUseEnerge;
-        }
-    }
-
-    private void SetGraphWitdh(Image graph, float width)
-    {
-        graph.rectTransform.sizeDelta = new Vector2(width, RESULT_GRAPH_HEIGHT);
-    }
-
-    private void SetGraphWitdh(GameObject graph, float width)
-    {
-        graph.GetComponent<RectTransform>().sizeDelta = new Vector2(width, RESULT_GAMEOBJECT_GRAPH_HEIGHT);
-    }
-
-    private void FillTextAboutGraphValue(Text text, double percentage, float value)
-    {
-        if (percentage == 0)
-        {
-            text.text = "";
-        }
-        else
-        {
-            text.text = percentage.ToString() + "%\n(" + value.ToString() + ")";
         }
     }
 }
