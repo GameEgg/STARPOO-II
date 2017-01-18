@@ -33,7 +33,7 @@ public class TransferTCP {
     Socket socketAsClient;
 
     bool acceptClient;
-    List<Client> clients;
+    List<NetworkClient> clients;
     byte[] buffer = new byte[1024*20];
 
 
@@ -42,7 +42,7 @@ public class TransferTCP {
         sendToServerQueue = new PacketQueue();
         sendToClientsQueue = new PacketQueue();
         recvQueue = new PacketQueue();
-        clients = new List<Client>();
+        clients = new List<NetworkClient>();
     }
 
     void Dispatch(){
@@ -221,7 +221,7 @@ public class TransferTCP {
         if(socketAsServer.Poll(0,SelectMode.SelectRead))
         {
             var socket = socketAsServer.Accept();
-            var client = new Client(socket);
+            var client = new NetworkClient(socket);
             client.networkId = NetworkIdGenerator.Generate();
             clients.Add(client);
             onNewClientJoin.Invoke(client);

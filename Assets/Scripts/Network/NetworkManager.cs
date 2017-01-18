@@ -182,7 +182,7 @@ public class NetworkManager : MonoBehaviour {
         }
     }
 
-    void NewClientJoin(Client client)
+    void NewClientJoin(NetworkClient client)
     {
         var networkId = new pByte(client.networkId);
         Debug.Log("Send generated id : " + client.networkId);

@@ -96,7 +96,7 @@ public class UIRoom : MonoBehaviour {
     /// 중간에 새 클라이언트가 접속하면, 기존 선택된 스크립트에 대한 정보를 전송해준다.
     /// </summary>
     /// <param name="client"></param>
-    void ClientJoin(Client client)
+    void ClientJoin(NetworkClient client)
     {
         byte scriptIndex = 0;
         foreach (var item in selectedItems) {

@@ -19,5 +19,5 @@ public class SelectedScriptEvent : UnityEvent<UIScriptListItem> { }
 public class ChatMessageEvent : UnityEvent<ChatMessage> { }
 public class NetworkErrorEvent : UnityEvent<NetworkError> { }
 
-public class ClientEvent : UnityEvent<Client> { }
+public class ClientEvent : UnityEvent<NetworkClient> { }
 public class ScriptStringEvent : UnityEvent<AIScript, string> { };

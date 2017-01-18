@@ -16,12 +16,12 @@ public struct ChatMessage
     }
 }
 
-public struct Client
+public struct NetworkClient
 {
     public PacketQueue sendQueue;
     public Socket socket;
     public byte networkId;
-    public Client(Socket socket)
+    public NetworkClient(Socket socket)
     {
         this.socket = socket;
         sendQueue = new PacketQueue();
