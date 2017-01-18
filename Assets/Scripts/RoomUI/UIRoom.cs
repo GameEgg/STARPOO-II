@@ -105,7 +105,7 @@ public class UIRoom : MonoBehaviour {
                 var packet = new pScript();
                 packet.code = item.script.code;
                 packet.index = scriptIndex;
-                packet.name = item.script.author.name;
+                packet.name = item.script.name;
                 packet.networkId = item.script.author.networkId;
                 client.sendQueue.Enqueue(packet.Serialize(PacketType.pSendScript));
             }
