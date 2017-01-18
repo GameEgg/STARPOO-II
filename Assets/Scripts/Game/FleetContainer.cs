@@ -34,7 +34,7 @@ public static class FleetContainer {
                 float row = j % numRow;
                 float column = Mathf.Floor(j / numRow);
 
-                float rot = fleetRot + (row - (numRow - 1) / 2) * 4;
+                float rot = fleetRot + (row - (numRow - 1) / 2) * 5;
                 float distance = column * 4;
 
                 float rad = Mathf.PI * rot / 180;
