@@ -157,7 +157,7 @@ public class NetworkManager : MonoBehaviour {
     void OnServerClosed()
     {
         Debug.LogWarning("알림 : 서버가 종료되었습니다.");
-        NoticeUI.instance.ShowMessage("Connection closed by server");
+        NoticeUI.instance.ShowMessage("Connection closed");
         Disconnect();
         goMain = true;
     }
@@ -171,7 +171,6 @@ public class NetworkManager : MonoBehaviour {
     void Update()
     {
         if(TransferTCP.instance.thread != null)
-            Debug.Log("thread alive : "+TransferTCP.instance.thread.IsAlive);
         if (TransferTCP.instance.recvQueue.ReceivedItemCount() > 0)
         {
             var item = TransferTCP.instance.recvQueue.DequeueAnalyzed();

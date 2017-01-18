@@ -36,6 +36,9 @@ public class ChatUI : MonoBehaviour {
         playerUIPrefab.gameObject.SetActive(false);
         chatInputField.gameObject.SetActive(false);
 
+        deathNode.Clear();
+        chatPlayerUIs.Clear();
+
         NetworkEvents.onPlayerJoin.AddListener(OnPlayerJoin);
         NetworkEvents.onPlayerOut.AddListener(OnPlayerOut);
 	}

@@ -48,7 +48,6 @@ public class TransferTCP {
     void Dispatch(){
         while(thread.IsAlive && threadRunning)
         {
-            Debug.Log("isServer = "+ NetworkVariables.isServer);
             if (NetworkVariables.isServer){
                 if(acceptClient){
                     AcceptClient();

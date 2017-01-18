@@ -59,6 +59,7 @@ public class ChatPlayerUI : MonoBehaviour
 
     void OnGameEnd()
     {
+        myScriptCount = 0;
         chatFieldTeduriImage.color = nameTeduriImage.color = originTeduriColor;
     }
 
