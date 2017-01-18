@@ -15,34 +15,20 @@ public class GameObserver : MonoBehaviour {
     void LaserHit (Ship attacker, Ship victim, float damage)
     {
         attacker.history.totalDamage += damage;
-        attacker.history.totalHitCount += 1;
-        attacker.history.hitRate = attacker.history.totalHitCount / attacker.history.totalShootCount;
-
         attacker.fleet.history.totalDamage += damage;
-        attacker.fleet.history.totalHitCount += 1;
-        attacker.fleet.history.hitRate = attacker.fleet.history.totalHitCount / attacker.fleet.history.totalShootCount;
 
         victim.history.totalHittedCount += 1;
-        if (victim.history.resetHP < damage)
-        {
-            victim.history.resetHP = 0;
-        }
-        else
-        {
-            victim.history.resetHP -= damage;
-        }
+        victim.history.resetHP = (victim.history.resetHP < damage) ? 0 : victim.history.resetHP - damage;
         victim.fleet.history.totalHittedCount += 1;
-        if (victim.fleet.history.restHP < damage)
-        {
-            victim.fleet.history.restHP = 0;
-        }
-        else
-        {
-            victim.fleet.history.restHP -= damage;
-        }
+        victim.fleet.history.restHP = (victim.fleet.history.restHP < damage) ? 0 : victim.fleet.history.restHP - damage;
 
         if (attacker.fleet != victim.fleet)
         {
+            attacker.history.totalHitCount += 1;
+            attacker.history.hitRate = attacker.history.totalHitCount / attacker.history.totalShootCount;
+            attacker.fleet.history.totalHitCount += 1;
+            attacker.fleet.history.hitRate = attacker.fleet.history.totalHitCount / attacker.fleet.history.totalShootCount;
+
             attacker.history.damageToEnemy += damage;
             attacker.fleet.history.damageToEnemy += damage;
             victim.history.damagedByEnemy += damage;
