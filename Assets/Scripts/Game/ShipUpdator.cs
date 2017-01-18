@@ -103,8 +103,9 @@ public class ShipUpdator : GameSyncObject {
     {
         var speed = !_ship.isCharging.value ? _ship.spd :
             Mathf.Min(GameConsts.maxShipSpd * GameConsts.chargingMoveSlow, _ship.spd);
-        var position = _rigidbody.transform.position + (_rigidbody.transform.rotation * Vector3.right * Time.deltaTime * speed);
-        _rigidbody.MovePosition(position);
+        var position = transform.position + (_rigidbody.transform.rotation * Vector3.right * Time.deltaTime * speed);
+        transform.position = position;
+        //_rigidbody.MovePosition(position);
     }
 
     /// <summary>
