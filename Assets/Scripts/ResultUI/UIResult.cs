@@ -144,12 +144,6 @@ public class UIResult : MonoBehaviour
 
     void ClickExitBtn()
     {
-        foreach (FleetHistory fleetHistory in BattleHistory.fleetHistorys)
-        {
-            fleetHistory.shipHistorys.Clear();
-        }
-        BattleHistory.fleetHistorys.Clear();
-
         SceneManager.LoadScene("Room");
 
         if (NetworkVariables.isServer && NetworkVariables.isNetwork)

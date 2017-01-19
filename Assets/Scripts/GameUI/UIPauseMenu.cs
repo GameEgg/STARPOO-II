@@ -41,6 +41,7 @@ public class UIPauseMenu : MonoBehaviour
 
         if(Network.isServer){
             NetworkManager.instance.EndGame();
+            NetworkEvents.onGameEnd.Invoke();
         }
     }
 }

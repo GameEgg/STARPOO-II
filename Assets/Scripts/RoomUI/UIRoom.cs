@@ -26,6 +26,7 @@ public class UIRoom : MonoBehaviour {
 
     void Start ()
     {
+        ClearHistory();
         var isRoommaker = !NetworkVariables.isNetwork || NetworkVariables.isServer;
 
         btnPlay.onClick.AddListener(ClickPlayBtn);
@@ -77,6 +78,15 @@ public class UIRoom : MonoBehaviour {
                 StartCoroutine(SetRoomTitleAsClient());
             }
         }
+    }
+
+    void ClearHistory(){
+
+        foreach (FleetHistory fleetHistory in BattleHistory.fleetHistorys)
+        {
+            fleetHistory.shipHistorys.Clear();
+        }
+        BattleHistory.fleetHistorys.Clear();
     }
 
     void OnDestroy()
