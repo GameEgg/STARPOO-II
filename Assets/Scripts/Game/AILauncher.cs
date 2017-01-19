@@ -185,7 +185,7 @@ public class AILauncher : MonoBehaviour {
     {
         //		Debug.Log(target["x"]);
         //Debug.Log((float)target["x"]);
-        float x, y;
+        double x, y;
         //		float x = (float)(double)target["x"];//(float)((PropertyDescriptor)target["x"]).Value;
         //		float y = (float)(double)target["y"];//(float)((PropertyDescriptor)target["y"]).Value;
         if (target["x"] is Int32)
@@ -195,17 +195,17 @@ public class AILauncher : MonoBehaviour {
             y = (int)target["y"];
         }
         else {
-            x = (float)(double)target["x"];
-            y = (float)(double)target["y"];
+            x = (double)target["x"];
+            y = (double)target["y"];
         }
         ObjectInstance ret = engine.Object.Construct();
         if (center == null)
         {
-            var rot = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+            var rot = R2D(Math.Atan2(y, x)).Round();
             rot %= 360;
-            var r = Vector2.Distance(new Vector2(x, y), Vector2.zero);
-            ret["r"] = (double)r;
-            ret["rot"] = (double)rot;
+            var r = Vector2.Distance(new Vector2(x.RoundToFloat(), y.RoundToFloat()), Vector2.zero);
+            ret["r"] = r.RoundToDouble();
+            ret["rot"] = rot;
         }
         else
         {
@@ -216,10 +216,10 @@ public class AILauncher : MonoBehaviour {
                 y -= (int)center["y"];
             }
             else {
-                x -= (float)(double)center["x"];
-                y -= (float)(double)center["y"];
+                x -= (double)center["x"];
+                y -= (double)center["y"];
             }
-            var rot = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+            var rot = R2D(Math.Atan2(y, x));
             if (center.HasProperty("rot"))
             {
                 if (center["rot"] is int)
@@ -227,8 +227,9 @@ public class AILauncher : MonoBehaviour {
                     rot -= (int)center["rot"];
                 }
                 else {
-                    rot -= (float)(double)center["rot"];
+                    rot -= (double)center["rot"];
                 }
+                rot = rot.Round();
                 rot %= 360;
 
                 if (rot > 180)
@@ -242,9 +243,9 @@ public class AILauncher : MonoBehaviour {
 
             }
 
-            var r = Vector2.Distance(new Vector2(x, y), Vector2.zero);
+            var r = Vector2.Distance(new Vector2(x.RoundToFloat(), y.RoundToFloat()), Vector2.zero);
             ret["r"] = r.RoundToDouble();
-            ret["rot"] = rot.RoundToDouble();
+            ret["rot"] = rot;
         }
 
         return ret;
