@@ -148,19 +148,19 @@ public class AILauncher : MonoBehaviour {
     }
     public double Cos(double v)
     {
-        return Math.Cos(D2R(v)).Round();
+        return Math.Cos(D2R(v));
     }
     public double Sin(double v)
     {
-        return Math.Sin(D2R(v)).Round();
+        return Math.Sin(D2R(v));
     }
     public double D2R(double v)
     {
-        return (v * Math.PI / 180).Round();
+        return (v * Math.PI / 180);
     }
     public double R2D(double v)
     {
-        return (v * 180 / Math.PI).Round();
+        return (v * 180 / Math.PI);
     }
     public double Distance(ObjectInstance a, ObjectInstance b)
     {
@@ -170,10 +170,10 @@ public class AILauncher : MonoBehaviour {
         double x2 = (double)b["x"];
         double y2 = (double)b["y"];
 
-        float x = (float)x1 - (float)x2;
-        float y = (float)y1 - (float)y2;
+        double x = x1 - x2;
+        double y = y1 - y2;
 
-        return Mathf.Sqrt(x * x + y * y).Round();
+        return Math.Sqrt(x * x + y * y);
     }
 
     public ObjectInstance Polar(ObjectInstance target)
@@ -201,8 +201,9 @@ public class AILauncher : MonoBehaviour {
         ObjectInstance ret = engine.Object.Construct();
         if (center == null)
         {
-            var rot = R2D(Math.Atan2(y, x)).Floor();
+            var rot = R2D(Math.Atan2(y, x));
             rot %= 360;
+
             var r = Vector2.Distance(new Vector2(x.RoundToFloat(), y.RoundToFloat()), Vector2.zero);
             ret["r"] = r.RoundToDouble();
             ret["rot"] = rot;
@@ -229,21 +230,20 @@ public class AILauncher : MonoBehaviour {
                 else {
                     rot -= (double)center["rot"];
                 }
-                rot = rot.Floor();
+                rot = rot;
                 rot %= 360;
 
                 if (rot > 180)
                 {
                     rot -= 360;
                 }
-                if (rot < -180)
+                else if (rot < -180)
                 {
                     rot += 360;
                 }
-
             }
 
-            var r = Vector2.Distance(new Vector2(x.RoundToFloat(), y.RoundToFloat()), Vector2.zero);
+            var r = Vector2.Distance(new Vector2((float)x, (float)y), Vector2.zero);
             ret["r"] = r.RoundToDouble();
             ret["rot"] = rot;
         }

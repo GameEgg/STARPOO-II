@@ -189,19 +189,10 @@ public class ShipUpdator : GameSyncObject {
         _collider = gameObject.AddComponent<CircleCollider2D>();
         _collider.radius = GameConsts.shipCollisionRadius;
 
-        InitDPhysics(ship.x,ship.y);
         InitRadar();
 
         transform.localPosition = new Vector2(ship.x, ship.y);
         UpdateRotation();
-    }
-
-    void InitDPhysics(float x, float y)
-    {
-        _body = gameObject.AddComponent<Body>();
-        _dcol = gameObject.AddComponent<DCollider>();
-        _dcol.radius = FInt.Create(GameConsts.shipCollisionRadius.RoundToDouble());
-        _body.Initialize(new Vector2d(FInt.Create(x.RoundToDouble().Floor()),FInt.Create(y.RoundToDouble().Floor())));
     }
     
     /// <summary>

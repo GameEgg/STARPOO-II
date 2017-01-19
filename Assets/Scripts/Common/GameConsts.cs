@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameConsts
 {
-    public const float shipCollisionRadius = 1;
+    public const float shipCollisionRadius = 2;
     public const float radarCollisionRadius = 14;
 
     public const float preDelay = 2;
