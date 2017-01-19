@@ -201,7 +201,7 @@ public class AILauncher : MonoBehaviour {
         ObjectInstance ret = engine.Object.Construct();
         if (center == null)
         {
-            var rot = R2D(Math.Atan2(y, x)).Round();
+            var rot = R2D(Math.Atan2(y, x)).Floor();
             rot %= 360;
             var r = Vector2.Distance(new Vector2(x.RoundToFloat(), y.RoundToFloat()), Vector2.zero);
             ret["r"] = r.RoundToDouble();
@@ -229,7 +229,7 @@ public class AILauncher : MonoBehaviour {
                 else {
                     rot -= (double)center["rot"];
                 }
-                rot = rot.Round();
+                rot = rot.Floor();
                 rot %= 360;
 
                 if (rot > 180)

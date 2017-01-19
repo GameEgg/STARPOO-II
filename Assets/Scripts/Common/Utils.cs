@@ -11,9 +11,12 @@ public static class Utils  {
         return ((float)a).Round();
     }
     public static double Round(this double a){
-        return Math.Round(a * 100d) * 0.01d;
+        return Math.Round(a,2);
+    }
+    public static double Floor(this double a){
+        return Math.Floor(a);
     }
     public static float Round(this float a){
-        return Mathf.Round(a * 100f) * 0.01f;
+        return (float)Math.Round(a,2);
     }
 }

@@ -24,10 +24,9 @@ public class ShipUpdator : GameSyncObject {
     /// </summary>
     public void ApplyPhysicsToShip()
     {
-        _ship.x = transform.position.x;
-        _ship.y = transform.position.y;
-
-        _ship.rot = transform.rotation.eulerAngles.z;
+        _ship.x = transform.position.x.Round();
+        _ship.y = transform.position.y.Round();
+        //_ship.rot = transform.rotation.eulerAngles.z;
     }
     
     public override void GameUpdate()
@@ -107,9 +106,16 @@ public class ShipUpdator : GameSyncObject {
     {
         var speed = !_ship.isCharging.value ? _ship.spd :
             Mathf.Min(GameConsts.maxShipSpd * GameConsts.chargingMoveSlow, _ship.spd);
-        var position = transform.position + (_rigidbody.transform.rotation * Vector3.right * Time.deltaTime * speed);
+        
+        var position = transform.position + (transform.rotation * Vector3.right * Time.deltaTime * speed);
         transform.position = position;
         //_rigidbody.MovePosition(position);
+
+        //var position = transform.position + (_ship.rot * Vector3.right * Time.deltaTime * speed);
+        //Debug.Log(_body.Position);
+        //_body.Position = new Vector2d(FInt.Create(position.x.RoundToDouble()),FInt.Create(position.y.RoundToDouble()));
+        //_body.PositionChanged = true;
+        //Debug.Log(_body.Position);
     }
 
     /// <summary>
@@ -181,12 +187,21 @@ public class ShipUpdator : GameSyncObject {
         _rigidbody.sharedMaterial = physicsMaterial;
 
         _collider = gameObject.AddComponent<CircleCollider2D>();
-        _collider.isTrigger = true;
         _collider.radius = GameConsts.shipCollisionRadius;
+
+        InitDPhysics(ship.x,ship.y);
         InitRadar();
 
         transform.localPosition = new Vector2(ship.x, ship.y);
         UpdateRotation();
+    }
+
+    void InitDPhysics(float x, float y)
+    {
+        _body = gameObject.AddComponent<Body>();
+        _dcol = gameObject.AddComponent<DCollider>();
+        _dcol.radius = FInt.Create(GameConsts.shipCollisionRadius.RoundToDouble());
+        _body.Initialize(new Vector2d(FInt.Create(x.RoundToDouble().Floor()),FInt.Create(y.RoundToDouble().Floor())));
     }
     
     /// <summary>
