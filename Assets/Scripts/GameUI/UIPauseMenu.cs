@@ -17,6 +17,10 @@ public class UIPauseMenu : MonoBehaviour
     void Start () {
         resume.onClick.AddListener(ClickResume);
         exit.onClick.AddListener(ClickExit);
+
+        if(Network.isClient){
+            exit.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -33,6 +37,10 @@ public class UIPauseMenu : MonoBehaviour
     }
     void ClickExit()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Room");
+
+        if(Network.isServer){
+            NetworkManager.instance.EndGame();
+        }
     }
 }
