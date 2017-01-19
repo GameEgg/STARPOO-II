@@ -86,7 +86,11 @@ public class TransferTCP {
 
     bool IsSocketConnected(Socket s)
     {
-        return !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
+        try
+        {
+            return !(s.Poll(1, SelectMode.SelectRead) && s.Available == 0);
+        }
+        catch (SocketException) { return false; }
     }
 
     void DispatchSend(){

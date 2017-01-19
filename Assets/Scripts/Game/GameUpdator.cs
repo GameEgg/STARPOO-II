@@ -25,17 +25,16 @@ public class GameUpdator : MonoBehaviour
         GameEvents.onShipDestroyed.AddListener(ShipDestroyed);
         GameEvents.onLaserHit.AddListener(ShipDamaged);
     }
-
-    void InitDPhysics(){
-
+    /*
+    void InitDPhysics()
+    {
         //Initializing the simulation
         Time.fixedDeltaTime = .1f; //Setting our fixed update rate
         DPhysicsManager.SimulationDelta = FInt.Create (.1d); //Syncing DPhysics's simulation rate with Unity's fixed update
         DPhysicsManager.Restitution = FInt.OneF; //Restitution of 1 results in complete conservation of momentum
         DPhysicsManager.CollisionDamp = FInt.ZeroF; //No reason for collision offsets since objects aren't clumped
         DPhysicsManager.Drag = FInt.OneF; //Velocity is completely conserved
-
-    }
+    }*/
 
     void InitAILaunchers()
     {
@@ -93,7 +92,6 @@ public class GameUpdator : MonoBehaviour
 
         GameVariables.gameFrame++;
 
-        DPhysicsManager.Simulate();
 
         // 1. 저번 FixedUpdate 이후에 이루어진 물리 변화를 Ship에 반영
         foreach (var updators in shipUpdators)

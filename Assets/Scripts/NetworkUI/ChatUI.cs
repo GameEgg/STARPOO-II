@@ -91,6 +91,7 @@ public class ChatUI : MonoBehaviour {
                 playerUI.Suicide();
             }
             chatPlayerUIs.Clear();
+            deathNode.Clear();
             leftUIContainer.Clear();
             rightUIContainer.Clear();
         }
