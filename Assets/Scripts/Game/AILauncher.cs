@@ -53,6 +53,7 @@ public class AILauncher : MonoBehaviour {
     /// <param name="engine"></param>
     void ExportGlobalFunctions(ScriptEngine engine) {
         engine.SetGlobalFunction("log", new Action<string>(Log));
+        engine.SetGlobalFunction("cartesian", new Func<ObjectInstance, ObjectInstance>(Cartesian));
         engine.SetGlobalFunction("polar", new Func<ObjectInstance, ObjectInstance>(Polar));
         engine.SetGlobalFunction("polarFrom", new Func<ObjectInstance, ObjectInstance, ObjectInstance>(PolarFrom));
         engine.SetGlobalFunction("cos", new Func<double, double>(Cos));
@@ -176,6 +177,21 @@ public class AILauncher : MonoBehaviour {
         return Math.Sqrt(x * x + y * y);
     }
 
+    public ObjectInstance Cartesian(ObjectInstance target)
+    {
+        double r = target.GetDouble("r");
+        double rot = target.GetDouble("rot");
+
+        double x = r * Cos(rot);
+        double y = r * Sin(rot);
+
+        ObjectInstance ret = engine.Object.Construct();
+        ret["x"] = x;
+        ret["y"] = y;
+
+        return ret;
+    }
+
     public ObjectInstance Polar(ObjectInstance target)
     {
         ObjectInstance ret = PolarFrom(null, target);
@@ -183,21 +199,9 @@ public class AILauncher : MonoBehaviour {
     }
     public ObjectInstance PolarFrom(ObjectInstance center, ObjectInstance target)
     {
-        //		Debug.Log(target["x"]);
-        //Debug.Log((float)target["x"]);
-        double x, y;
-        //		float x = (float)(double)target["x"];//(float)((PropertyDescriptor)target["x"]).Value;
-        //		float y = (float)(double)target["y"];//(float)((PropertyDescriptor)target["y"]).Value;
-        if (target["x"] is Int32)
-        {
+        var x = target.GetDouble("x");
+        var y = target.GetDouble("y");
 
-            x = (int)target["x"];
-            y = (int)target["y"];
-        }
-        else {
-            x = (double)target["x"];
-            y = (double)target["y"];
-        }
         ObjectInstance ret = engine.Object.Construct();
         if (center == null)
         {
@@ -210,26 +214,14 @@ public class AILauncher : MonoBehaviour {
         }
         else
         {
-            if (center["x"] is int)
-            {
+            x -= center.GetDouble("x");
+            y -= center.GetDouble("y");
 
-                x -= (int)center["x"];
-                y -= (int)center["y"];
-            }
-            else {
-                x -= (double)center["x"];
-                y -= (double)center["y"];
-            }
             var rot = R2D(Math.Atan2(y, x));
             if (center.HasProperty("rot"))
             {
-                if (center["rot"] is int)
-                {
-                    rot -= (int)center["rot"];
-                }
-                else {
-                    rot -= (double)center["rot"];
-                }
+                rot -= center.GetDouble("rot");
+
                 rot %= 360;
 
                 if (rot > 181)
@@ -250,6 +242,7 @@ public class AILauncher : MonoBehaviour {
         return ret;
     }
     #endregion
+
 }
 
 public class MyShipJSObject : ShipJSObject
@@ -264,19 +257,19 @@ public class MyShipJSObject : ShipJSObject
     public void Shoot(double power)
     {
         //_ship.Shoot((float)power);
-        _ship.Shoot(power.RoundToFloat());
+        _ship.Shoot((float)power);
     }
     [JSFunction(Name = "setSpeed")]
     public void SetSpeed(double speed)
     {
         //_ship.SetSpeed((float)speed);
-        _ship.SetSpeed(speed.RoundToFloat());
+        _ship.SetSpeed((float)speed);
     }
     [JSFunction(Name = "setRotSpeed")]
     public void SetRotSpeed(double rotSpeed)
     {
         //_ship.SetRotSpeed((float)rotSpeed);
-        _ship.SetRotSpeed(rotSpeed.RoundToFloat());
+        _ship.SetRotSpeed((float)rotSpeed);
     }
 
     public override void UpdateProperties()
@@ -317,7 +310,7 @@ public class ShipJSObject : ObjectInstance
     }
 
     protected void ExportValue(string key, float value){
-        this[key] = value.RoundToDouble();
+        this[key] = (double)value;
     }
     protected void ExportValue(string key, bool value){
         this[key] = value;

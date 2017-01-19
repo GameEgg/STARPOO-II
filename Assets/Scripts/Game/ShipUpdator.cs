@@ -24,8 +24,8 @@ public class ShipUpdator : GameSyncObject {
     /// </summary>
     public void ApplyPhysicsToShip()
     {
-        _ship.x = transform.position.x.Round();
-        _ship.y = transform.position.y.Round();
+        _ship.x = transform.position.x;
+        _ship.y = transform.position.y;
         //_ship.rot = transform.rotation.eulerAngles.z;
     }
     
