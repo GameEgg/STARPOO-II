@@ -10,6 +10,7 @@ var b_detectednewEnemy = false;
 var new_arr_detected_already_enemy_ships = [];
 
 function update() {
+    loggable = true;
     if (!b_init) {
         init();
     }
@@ -133,8 +134,19 @@ function copyMovingofTarget (myShip, target) {
     }
 }
 
+var loggable = true;
+function log2(data){
+    if(loggable)
+        log(data);
+    loggable = false;
+}
+
 function focusTarget (myShip, target) {
     var p = polarFrom(myShip, target);
+    if(myShip.id % 1000 == 6){
+        log2("p.rot(" + p.rot + ") myShip(" + myShip.x.toFixed(1) + "," + myShip.y.toFixed(1) + ")"
+        + " target(" + target.x.toFixed(1) + "," + target.y.toFixed(1) + ")" );
+    }
     myShip.setRotSpeed(Math.min(p.rot * 60, 360));
     myShip.setSpeed((180 - Math.abs(p.rot)) / 180 * shipMaxSpeed);
     if (Math.abs(p.rot) < 5) {

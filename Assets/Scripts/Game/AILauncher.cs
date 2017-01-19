@@ -148,19 +148,19 @@ public class AILauncher : MonoBehaviour {
     }
     public double Cos(double v)
     {
-        return Mathf.Cos(Mathf.Deg2Rad * (float)v);
+        return Math.Cos(D2R(v)).Round();
     }
     public double Sin(double v)
     {
-        return Mathf.Sin(Mathf.Deg2Rad * (float)v);
+        return Math.Sin(D2R(v)).Round();
     }
     public double D2R(double v)
     {
-        return (Mathf.Deg2Rad * (float)v);
+        return (v * Math.PI / 180).Round();
     }
     public double R2D(double v)
     {
-        return (Mathf.Rad2Deg * (float)v);
+        return (v * 180 / Math.PI).Round();
     }
     public double Distance(ObjectInstance a, ObjectInstance b)
     {
@@ -173,7 +173,7 @@ public class AILauncher : MonoBehaviour {
         float x = (float)x1 - (float)x2;
         float y = (float)y1 - (float)y2;
 
-        return Mathf.Sqrt(x * x + y * y);
+        return Mathf.Sqrt(x * x + y * y).Round();
     }
 
     public ObjectInstance Polar(ObjectInstance target)
@@ -243,8 +243,8 @@ public class AILauncher : MonoBehaviour {
             }
 
             var r = Vector2.Distance(new Vector2(x, y), Vector2.zero);
-            ret["r"] = (double)r;
-            ret["rot"] = (double)rot;
+            ret["r"] = r.RoundToDouble();
+            ret["rot"] = rot.RoundToDouble();
         }
 
         return ret;
@@ -263,24 +263,27 @@ public class MyShipJSObject : ShipJSObject
     [JSFunction(Name = "shoot")]
     public void Shoot(double power)
     {
-        _ship.Shoot((float)power);
+        //_ship.Shoot((float)power);
+        _ship.Shoot(power.RoundToFloat());
     }
     [JSFunction(Name = "setSpeed")]
     public void SetSpeed(double speed)
     {
-        _ship.SetSpeed((float)speed);
+        //_ship.SetSpeed((float)speed);
+        _ship.SetSpeed(speed.RoundToFloat());
     }
     [JSFunction(Name = "setRotSpeed")]
     public void SetRotSpeed(double rotSpeed)
     {
-        _ship.SetRotSpeed((float)rotSpeed);
+        //_ship.SetRotSpeed((float)rotSpeed);
+        _ship.SetRotSpeed(rotSpeed.RoundToFloat());
     }
 
     public override void UpdateProperties()
     {
         base.UpdateProperties();
-        this["spd"] = (double)_ship.spd;
-        this["rotSpd"] = (double)_ship.rotSpd;
+        ExportValue("spd",_ship.spd);
+        ExportValue("rotSpd",_ship.rotSpd);
     }
 }
 
@@ -299,17 +302,24 @@ public class ShipJSObject : ObjectInstance
 
     public virtual void UpdateProperties()
     {
-        this["id"] = (double)_ship.id;
-        this["hp"] = (double)_ship.hp.value;
-        this["x"] = (double)_ship.x;
-        this["y"] = (double)_ship.y;
-        this["rot"] = (double)_ship.rot;
-        this["rad"] = (double)_ship.rad;
-        this["delay"] = (double)_ship.delay.value;
-        this["isCharging"] = _ship.isCharging.value;
-        this["chargedPower"] = (double)_ship.chargedPower;
-        this["shootingRot"] = (double)_ship.shootingRot;
-        this["shootingRad"] = (double)_ship.shootingRad;
-        this["shootingPower"] = (double)_ship.shootingPower;
+        ExportValue("id", _ship.id);
+        ExportValue("hp", _ship.hp.value);
+        ExportValue("x", _ship.x);
+        ExportValue("y", _ship.y);
+        ExportValue("rot", _ship.rot);
+        ExportValue("rad", _ship.rad);
+        ExportValue("delay", _ship.delay.value);
+        ExportValue("isCharging", _ship.isCharging.value);
+        ExportValue("chargedPower", _ship.chargedPower);
+        ExportValue("shootingRot", _ship.shootingRot);
+        ExportValue("shootingRad", _ship.shootingRad);
+        ExportValue("shootingPower", _ship.shootingPower);
+    }
+
+    protected void ExportValue(string key, float value){
+        this[key] = value.RoundToDouble();
+    }
+    protected void ExportValue(string key, bool value){
+        this[key] = value;
     }
 }
