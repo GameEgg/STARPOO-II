@@ -60,8 +60,13 @@ public class ChatUI : MonoBehaviour {
 
     void OnPlayerOut(byte id)
     {
-        deathNode.Add(id);
-        Debug.Log("network player out : "+id);
+        if(chatPlayerUIs.ContainsKey(id)){
+            deathNode.Add(id);
+            Debug.Log("network player out : "+id);
+        }
+        else{
+            Debug.LogError("no chat ui player out!!!! : "+id);
+        }
     }
 
     void Update()
