@@ -71,7 +71,7 @@ public class ChatUI : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && NetworkVariables.isNetwork)
+        if (Input.GetKeyDown(KeyCode.Return) && NetworkVariables.isNetwork && chatPlayerUIs.Count > 0)
         {
             if (chatInputField.gameObject.activeSelf)
             {
@@ -99,6 +99,7 @@ public class ChatUI : MonoBehaviour {
             deathNode.Clear();
             leftUIContainer.Clear();
             rightUIContainer.Clear();
+            chatInputField.gameObject.SetActive(false);
         }
 
         if (deathNode.Count > 0)
