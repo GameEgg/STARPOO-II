@@ -126,11 +126,11 @@ public class ShipUpdator : GameSyncObject {
         _ship.rot += _ship.rotSpd * Time.deltaTime;
 
         _ship.rot %= 360;
-        if (_ship.rot > 180)
+        if (_ship.rot > 181)
         {
             _ship.rot -= 360;
         }
-        if (_ship.rot < -180)
+        if (_ship.rot < -181)
         {
             _ship.rot += 360;
         }
