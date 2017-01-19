@@ -78,18 +78,18 @@ public class UIMain : MonoBehaviour {
         NetworkManager.instance.StopAll();
     }
     
-    private void OnGUI()
+    void Update()
     {
         if (currentLayout == renameLayout && inputFieldNickname.text != string.Empty)
         {
-            if (Event.current.keyCode == KeyCode.Return)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 ClickRenameApplyBtn();
             }
         }
         else if (currentLayout == joinLayout)
         {
-            if (Event.current.keyCode == KeyCode.Return)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 ClickJoinToAddressBtn();
             }
