@@ -162,7 +162,7 @@ function basicMove(ship){
 
 	if(dist(target_pos,ship) > 3){
 		lookPos(ship,target_pos);
-		ship.setSpeed(10);
+		ship.setSpeed(shipMaxSpeed);
 		return true;
 	}
 	else{
@@ -262,7 +262,7 @@ function evade(ship,array){
 			lookPos(ship,target,90);
 		}
 		if(Math.abs(a) > 80){
-			ship.setSpeed(5);
+			ship.setSpeed(shipMaxSpeed);
 		}
 		else{
 			ship.setSpeed(0);

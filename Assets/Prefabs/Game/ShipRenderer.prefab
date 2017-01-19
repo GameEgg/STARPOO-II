@@ -1010,7 +1010,7 @@ TrailRenderer:
   m_Time: 0.4
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 1.5
+    widthMultiplier: 30
     widthCurve:
       serializedVersion: 2
       m_Curve:

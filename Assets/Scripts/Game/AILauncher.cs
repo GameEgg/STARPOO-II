@@ -233,11 +233,11 @@ public class AILauncher : MonoBehaviour {
                 rot = rot;
                 rot %= 360;
 
-                if (rot > 180)
+                if (rot > 181)
                 {
                     rot -= 360;
                 }
-                else if (rot < -180)
+                else if (rot < -181)
                 {
                     rot += 360;
                 }

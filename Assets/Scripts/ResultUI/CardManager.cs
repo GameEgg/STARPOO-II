@@ -14,14 +14,18 @@ public class CardManager : MonoBehaviour {
     [SerializeField]
     GameObject CardListPlayer2;
 
+    [SerializeField]
+    AudioClip goodAudio;
+    [SerializeField]
+    AudioClip badAudio;
+
     // Use this for initialization
     void Start () {
         CardList.InitAllCards();
 
         if (BattleHistory.fleetHistorys.Count >= 2)
         {
-            CheckAllCards(CardListPlayer1, BattleHistory.fleetHistorys[0]);
-            CheckAllCards(CardListPlayer2, BattleHistory.fleetHistorys[1]);
+            StartCoroutine(ShowCards());
         }
     }
 
@@ -39,12 +43,26 @@ public class CardManager : MonoBehaviour {
         card.GetComponent<Image>().color = backgroundColor;
     }
 
-    void CheckAllCards(GameObject targetList, FleetHistory fleetHistory)
+    IEnumerator ShowCards(){
+        yield return new WaitForSeconds(2);
+        yield return CheckAllCards(CardListPlayer1, BattleHistory.fleetHistorys[0]);
+        yield return CheckAllCards(CardListPlayer2, BattleHistory.fleetHistorys[1]);
+    }
+
+    IEnumerator CheckAllCards(GameObject targetList, FleetHistory fleetHistory)
     {
         foreach (Card card in CardList.cardList)
         {
-            if (card.IsSatisfyAllConditions(fleetHistory))
+            if (card.IsSatisfyAllConditions(fleetHistory)){
                 GenerateCard(targetList, card.text, card.textColor, card.backgroundColor);
+                if(card.isGood){
+                    SFXManager.instance.Play(goodAudio);
+                }
+                else{
+                    SFXManager.instance.Play(badAudio);
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
         }
     }
 }

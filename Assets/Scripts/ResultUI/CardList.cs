@@ -7,6 +7,7 @@ public class Card
 {
     public string cardName;
     public string text;
+    public bool isGood;
     public Color textColor;
     public Color backgroundColor;
     public List<CardCondition> conditions;

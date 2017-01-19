@@ -68,6 +68,7 @@ public class UIShipHUD : MonoBehaviour {
         {
             hpBar.gameObject.SetActive(false);
             chargingBar.gameObject.SetActive(false);
+            radarMark.transform.localScale = Vector3.zero;
         }
     }
 

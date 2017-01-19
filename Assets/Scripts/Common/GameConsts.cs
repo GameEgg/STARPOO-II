@@ -12,7 +12,7 @@ public static class GameConsts
     public const int minShipCount = 1;
     public const int maxShipCount = 25;
     public const float maxShipHp = 5;
-    public const float maxShipSpd = 400;
+    public const float maxShipSpd = 300;
     public const float maxShipRotSpd = 360;
     public const float chargingMoveSlow = 0.3f;
     public const float chargingRotSlow = 0.5f;
