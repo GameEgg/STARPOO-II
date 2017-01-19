@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DPhysics;
 
 public class ShipUpdator : GameSyncObject {
     public Ship ship
@@ -12,6 +13,9 @@ public class ShipUpdator : GameSyncObject {
     CircleCollider2D _collider;
     CircleCollider2D _radar;
     Rigidbody2D _rigidbody;
+
+    Body _body;
+    DCollider _dcol;
 
     List<Ship> scannedEnemies = new List<Ship>();
 
@@ -177,6 +181,7 @@ public class ShipUpdator : GameSyncObject {
         _rigidbody.sharedMaterial = physicsMaterial;
 
         _collider = gameObject.AddComponent<CircleCollider2D>();
+        _collider.isTrigger = true;
         _collider.radius = GameConsts.shipCollisionRadius;
         InitRadar();
 
