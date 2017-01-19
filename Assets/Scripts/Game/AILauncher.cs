@@ -204,8 +204,8 @@ public class AILauncher : MonoBehaviour {
             var rot = R2D(Math.Atan2(y, x));
             rot %= 360;
 
-            var r = Vector2.Distance(new Vector2(x.RoundToFloat(), y.RoundToFloat()), Vector2.zero);
-            ret["r"] = r.RoundToDouble();
+            var r = Vector2.Distance(new Vector2((float)x, (float)y), Vector2.zero);
+            ret["r"] = (double)r;
             ret["rot"] = rot;
         }
         else
@@ -230,7 +230,6 @@ public class AILauncher : MonoBehaviour {
                 else {
                     rot -= (double)center["rot"];
                 }
-                rot = rot;
                 rot %= 360;
 
                 if (rot > 181)
@@ -244,7 +243,7 @@ public class AILauncher : MonoBehaviour {
             }
 
             var r = Vector2.Distance(new Vector2((float)x, (float)y), Vector2.zero);
-            ret["r"] = r.RoundToDouble();
+            ret["r"] = (double)r;
             ret["rot"] = rot;
         }
 
