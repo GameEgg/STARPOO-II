@@ -18,7 +18,7 @@ public class CardManager : MonoBehaviour {
     AudioClip goodAudio;
     [SerializeField]
     AudioClip badAudio;
-
+    
     // Use this for initialization
     void Start () {
         CardList.InitAllCards();
@@ -72,10 +72,10 @@ public static class CardList
     public static List<Card> cardList = new List<Card>();
 
     // Color 
-    private static Color goodColor = new Color(255, 227, 0);
-    private static Color goodFontColor = new Color(255, 255, 255);
-    private static Color badColor = new Color(141, 141, 141);
-    private static Color badFontColor = new Color(141, 141, 141);
+    private static Color goodColor = new Color(1, 0.89f, 0);
+    private static Color goodFontColor = new Color(1, 1, 1);
+    private static Color badColor = new Color(0.553f, 0.553f, 0.553f);
+    private static Color badFontColor = new Color(0.553f, 0.553f, 0.553f);
 
     public static void InitAllCards()
     {
@@ -119,12 +119,12 @@ public static class CardList
         */
 
         card = new Card(
-                    "절대자",
-                    "당신은 혹시 신?",
-                    true,
-                    Color.gray,
-                    Color.white,
-                    new List<CardCondition>());
+                "절대자",
+                "당신은 혹시 신?",
+                true,
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
         card.conditions.Add(new CardCondition_HP(100, true));
         card.conditions.Add(new CardCondition_HitRate(100, true));
         cardList.Add(card);
@@ -247,6 +247,29 @@ public static class CardList
                 badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_DamageToWall(70, true));
+        cardList.Add(card);
+
+        // 벽에게 받은 데미지
+        card = new Card(
+                "받은 피해중 벽에게 받은 데미지 (%)가 매우 높음",
+                "벽을 사랑한 AI",
+                false,
+                badFontColor,
+                badColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamagedByWall(50, false));
+        card.conditions.Add(new CardCondition_DamagedByWall(30, true));
+        cardList.Add(card);
+
+        card = new Card(
+                "받은 피해중 벽에게 받은 데미지 (%)가 높음",
+                "벽을 탐구하는 자",
+                false,
+                badFontColor,
+                badColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamagedByWall(30, false));
+        card.conditions.Add(new CardCondition_DamagedByWall(20, true));
         cardList.Add(card);
 
         // 복합
