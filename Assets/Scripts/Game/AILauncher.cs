@@ -118,6 +118,7 @@ public class AILauncher : MonoBehaviour {
         //update enemyShips
         if (enemyShips.Length != _fleet.enemyShips.Count)
         {
+            Debug.Log("!! : " + enemyShips.Length);
             i = 0;
             foreach (var enemy in allEnemyShips)
             {
@@ -127,6 +128,8 @@ public class AILauncher : MonoBehaviour {
                 }
             }
             enemyShips.Length = (uint)i;
+            Debug.Log("i : "+i);
+            Debug.Log("~ : "+enemyShips.Length);
         }
         for (i = 0; i < enemyShips.Length; ++i)
         {
@@ -149,7 +152,6 @@ public class AILauncher : MonoBehaviour {
     public void Log(string str)
     {
         GameEvents.onLog.Invoke(_fleet.script,str);
-        Debug.Log("JS LOG : " + str);
     }
     public double Random(){
         return randoms[randomI++%randoms.Length];

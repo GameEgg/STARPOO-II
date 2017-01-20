@@ -26,7 +26,7 @@ function attackEnemy(myShip){
 	var polarFromShip = polarFrom(myShip,targetPoint);
 	myShip.setRotSpeed(polarFromShip.rot/dt);
 
-	if(polarFromShip.rot < 0.01){
+	if(Math.abs(polarFromShip.rot) < 0.01){
 		myShip.shoot(shipMaxHp/2);
 	}
 }
