@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIMain : MonoBehaviour {
+    static bool firstSpawn = true;
     // Layouts in Main Panel
     [SerializeField]
     GameObject indexLayout;
@@ -76,6 +77,22 @@ public class UIMain : MonoBehaviour {
         LoadPlayerPrefData();
         BGMManager.instance.Play(bgm);
         NetworkManager.instance.StopAll();
+
+        if (firstSpawn)
+        {
+            transform.localScale = Vector3.zero;
+            firstSpawn = false;
+            StartCoroutine(FirstSpawn());
+        }
+    }
+
+    IEnumerator FirstSpawn()
+    {
+        while(gameObject.transform.localScale.x < 0.995f)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, 0.03f);
+            yield return null;
+        }
     }
     
     void Update()
