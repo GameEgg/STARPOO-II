@@ -120,7 +120,7 @@ public static class CardList
 
         card = new Card(
                 "절대자",
-                "당신은 혹시 신?",
+                "풀피로 완벽하게 승리",
                 true,
                 goodFontColor,
                 goodColor,
@@ -153,7 +153,18 @@ public static class CardList
 
         card = new Card(
                 "남은 피 낮음",
-                "어휴 겨~우 이겼네",
+                "아슬아슬한 승리",
+                true,
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_HP(0.1f, true));
+        card.conditions.Add(new CardCondition_HP(10, false));
+        cardList.Add(card);
+
+        card = new Card(
+                "남은 피 낮음",
+                "함선의 절반이 자살함",
                 true,
                 goodFontColor,
                 goodColor,
@@ -164,8 +175,8 @@ public static class CardList
 
         // 순수 명중률 관련
         card = new Card(
-                "매우 높은 명중률",
-                "백발백중",
+                "명중률100%",
+                "명중률 100%",
                 true,
                 goodFontColor,
                 goodColor,
@@ -175,7 +186,7 @@ public static class CardList
 
         card = new Card(
                 "높은 명중률",
-                "명사수",
+                "엄청난 명중률",
                 true,
                 goodFontColor,
                 goodColor,
@@ -207,8 +218,8 @@ public static class CardList
 
         // 팀킬
         card = new Card(
-                "팀 학살자",
-                "팀 학살자",
+                "아군 학살자",
+                "아군 학살자",
                 false,
                 badFontColor,
                 badColor,
@@ -230,7 +241,7 @@ public static class CardList
         // 벽킬
         card = new Card(
                 "벽에게 가한 피해(%) 높음",
-                "물반 고기반",
+                "절반 이상의 총알을 허공에",
                 false,
                 badFontColor,
                 badColor,
@@ -241,7 +252,7 @@ public static class CardList
 
         card = new Card(
                 "벽에게 가한 피해(%) 매우 높음",
-                "너 일부러 벽만 쏘지?",
+                "저는 벽만 계속 쏩니다",
                 false,
                 badFontColor,
                 badColor,
