@@ -44,7 +44,7 @@ public class CardManager : MonoBehaviour {
     }
 
     IEnumerator ShowCards(){
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1.5f);
         yield return CheckAllCards(CardListPlayer1, BattleHistory.fleetHistorys[0]);
         yield return CheckAllCards(CardListPlayer2, BattleHistory.fleetHistorys[1]);
     }
@@ -62,7 +62,7 @@ public class CardManager : MonoBehaviour {
                     SFXManager.instance.Play(badAudio);
                 }
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
     }
 }
