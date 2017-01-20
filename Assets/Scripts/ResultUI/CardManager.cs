@@ -71,6 +71,12 @@ public static class CardList
 {
     public static List<Card> cardList = new List<Card>();
 
+    // Color 
+    private static Color goodColor = new Color(255, 227, 0);
+    private static Color goodFontColor = new Color(255, 255, 255);
+    private static Color badColor = new Color(141, 141, 141);
+    private static Color badFontColor = new Color(141, 141, 141);
+
     public static void InitAllCards()
     {
         cardList.Clear();
@@ -106,70 +112,130 @@ public static class CardList
                     Color.gray,
                     Color.white,
                     new List<CardCondition>());
-            card.conditions.Add(new CardCondition_HP(card, 100, true));
-            card.conditions.Add(new CardCondition_HitRate(card, 100, true));
+            card.conditions.Add(new CardCondition_HP(100, true));
+            card.conditions.Add(new CardCondition_HitRate(100, true));
             cardList.Add(card);
         
         */
 
-        Color gold = new Color(255, 215, 0);
+        card = new Card(
+                    "절대자",
+                    "당신은 혹시 신?",
+                    Color.gray,
+                    Color.white,
+                    new List<CardCondition>());
+        card.conditions.Add(new CardCondition_HP(100, true));
+        card.conditions.Add(new CardCondition_HitRate(100, true));
+        cardList.Add(card);
 
         // 순수 체력 관련
         card = new Card(
                 "압도적인 승리",
                 "압도적인 힘으로!",
-                Color.black,
-                gold,
+                goodFontColor,
+                goodColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HP(90, true));
         cardList.Add(card);
 
         // 순수 명중률 관련
         card = new Card(
-                "높은 명중률",
-                "명사수",
-                Color.black,
-                gold,
-                new List<CardCondition>());
-        card.conditions.Add(new CardCondition_HitRate(70, true));
-        cardList.Add(card);
-
-        card = new Card(
                 "매우 높은 명중률",
                 "백발백중",
-                Color.black,
-                gold,
+                goodFontColor,
+                goodColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HitRate(100, true));
         cardList.Add(card);
 
         card = new Card(
+                "높은 명중률",
+                "명사수",
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_HitRate(70, true));
+        card.conditions.Add(new CardCondition_HitRate(100, false));
+        cardList.Add(card);
+
+        card = new Card(
                 "낮은 명중률",
                 "어딜보고 쏘는 거야?",
-                Color.black,
-                Color.gray,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HitRate(20, false));
+        card.conditions.Add(new CardCondition_HitRate(10, true));
         cardList.Add(card);
 
         card = new Card(
-                "명중률 0",
+                "명중률 한자리",
                 "손가락은 움직일 줄 아는거지?",
-                Color.black,
-                Color.gray,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_HitRate(0, false));
+        card.conditions.Add(new CardCondition_HitRate(10, false));
+        cardList.Add(card);
+
+        // 팀킬
+        card = new Card(
+                "팀 학살자",
+                "팀 학살자",
+                badFontColor,
+                badColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToAlly(50, true));
+        cardList.Add(card);
+
+        // 적킬
+        card = new Card(
+                "적팀에게 가한 피해(%) 높음",
+                "널 위해 발사했어ㅎ",
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToEnemy(70, true));
+        cardList.Add(card);
+
+        // 벽킬
+        card = new Card(
+                "벽에게 가한 피해(%) 높음",
+                "물반 고기반",
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToWall(50, true));
+        card.conditions.Add(new CardCondition_DamageToWall(70, false));
         cardList.Add(card);
 
         card = new Card(
+                "벽에게 가한 피해(%) 매우 높음",
+                "너 일부러 벽만 쏘지?",
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToWall(70, true));
+        cardList.Add(card);
+
+        // 복합
+        card = new Card(
                 "신중한 그대",
                 "신중한 그대",
-                Color.black,
-                Color.gray,
+                goodFontColor,
+                goodColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HitRate(60, true));
         card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.7f, false));
         card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.4f, true));
+        cardList.Add(card);
+
+        card = new Card(
+                "소심쟁이",
+                "쏘고 있는거 맞지??\n상대에 비해 사용에너지 적음",
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.5f, false));
         cardList.Add(card);
     }
 }

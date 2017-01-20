@@ -55,8 +55,9 @@ public class CardCondition_HP : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float HPpercentage = (fleetHistory.restHP / (GameConsts.maxShipHp * GameSettings.shipCount)) * 100;
-        if (expect == (HPpercentage > value) || HPpercentage == value)
+        if (expect == (HPpercentage > value) || (expect && (HPpercentage == value)))
             return true;
+
         return false;
     }
 }
@@ -73,7 +74,7 @@ public class CardCondition_HitRate : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float var = fleetHistory.hitRate * 100;
-        if (expect == (var > value) || var == value)
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
@@ -91,7 +92,7 @@ public class CardCondition_TotalDamage : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float var = fleetHistory.totalDamage;
-        if (expect == (var > value) || var == value)
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
@@ -108,8 +109,8 @@ public class CardCondition_DamageToEnemy : CardCondition
 
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
-        float var = fleetHistory.damageToEnemy;
-        if (expect == (var > value) || var == value)
+        double var = Math.Round(fleetHistory.damageToEnemy / fleetHistory.totalUseEnerge, 4) * 100;
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
@@ -126,8 +127,27 @@ public class CardCondition_DamageToAlly : CardCondition
 
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
-        float var = fleetHistory.damageToAlly;
-        if (expect == (var > value) || var == value)
+        double var = Math.Round(fleetHistory.damageToAlly / fleetHistory.totalUseEnerge, 4) * 100;
+        if (expect == (var > value) || (expect && (var == value)))
+            return true;
+        return false;
+    }
+}
+
+// percentage about DamageToAlly of all ships in fleet
+public class CardCondition_DamageToWall : CardCondition
+{
+    public CardCondition_DamageToWall(float value, bool expect)
+    {
+        this.value = value;
+        this.expect = expect;
+    }
+
+    override public bool IsSatisfyCondition(FleetHistory fleetHistory)
+    {
+        float damageToWall = fleetHistory.totalUseEnerge - fleetHistory.totalDamage;
+        double var = Math.Round(damageToWall / fleetHistory.totalUseEnerge, 4) * 100;
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
@@ -145,7 +165,7 @@ public class CardCondition_TotalUseEnerge : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float var = fleetHistory.totalUseEnerge;
-        if (expect == (var > value) || var == value)
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
@@ -163,7 +183,7 @@ public class CardCondition_DamagedByEnemy : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float var = fleetHistory.damagedByEnemy;
-        if (expect == (var > value) || var == value)
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
@@ -181,7 +201,7 @@ public class CardCondition_DamagedByAlly : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float var = fleetHistory.damagedByAlly;
-        if (expect == (var > value) || var == value)
+        if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
     }
