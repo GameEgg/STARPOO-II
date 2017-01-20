@@ -44,7 +44,7 @@ public class CardManager : MonoBehaviour {
     }
 
     IEnumerator ShowCards(){
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         yield return CheckAllCards(CardListPlayer1, BattleHistory.fleetHistorys[0]);
         yield return CheckAllCards(CardListPlayer2, BattleHistory.fleetHistorys[1]);
     }
@@ -61,8 +61,8 @@ public class CardManager : MonoBehaviour {
                 else{
                     SFXManager.instance.Play(badAudio);
                 }
+                yield return new WaitForSeconds(0.6f);
             }
-            yield return new WaitForSeconds(0.35f);
         }
     }
 }
@@ -132,12 +132,13 @@ public static class CardList
         // 순수 체력 관련
         card = new Card(
                 "압도적인 승리",
-                "압도적인 힘으로!",
+                "압도적인 승리!",
                 true,
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HP(90, true));
+        card.conditions.Add(new CardCondition_HitRate(100, false));
         cardList.Add(card);
 
         card = new Card(
@@ -225,6 +226,17 @@ public static class CardList
                 badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_DamageToAlly(50, true));
+        card.conditions.Add(new CardCondition_DamageToAlly(50, true));
+        cardList.Add(card);
+
+        card = new Card(
+                "아군 안죽인다",
+                "아군을 거의 안 때림!",
+                true,
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToAlly(15, false));
         cardList.Add(card);
 
         // 적킬
@@ -241,7 +253,7 @@ public static class CardList
         // 벽킬
         card = new Card(
                 "벽에게 가한 피해(%) 높음",
-                "절반 이상의 총알을 허공에",
+                "저는 벽 쏘는걸 좋아합니다",
                 false,
                 badFontColor,
                 badColor,
@@ -252,7 +264,7 @@ public static class CardList
 
         card = new Card(
                 "벽에게 가한 피해(%) 매우 높음",
-                "저는 벽만 계속 쏩니다",
+                "저는 벽만 계속 쏠겁니다",
                 false,
                 badFontColor,
                 badColor,
@@ -262,48 +274,45 @@ public static class CardList
 
         // 벽에게 받은 데미지
         card = new Card(
-                "받은 피해중 벽에게 받은 데미지 (%)가 매우 높음",
-                "벽을 사랑한 AI",
+                "받은 피해중 벽에게 받은 데미지 (%)가 대부분",
+                "벽으로 돌격하라!",
                 false,
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamagedByWall(50, false));
-        card.conditions.Add(new CardCondition_DamagedByWall(30, true));
+        card.conditions.Add(new CardCondition_DamagedByWall(70, true));
+        cardList.Add(card);
+        card = new Card(
+                "받은 피해중 벽에게 받은 데미지 (%)가 매우 높음",
+                "자살 매니아",
+                false,
+                badFontColor,
+                badColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamagedByWall(70, false));
+        card.conditions.Add(new CardCondition_DamagedByWall(40, true));
         cardList.Add(card);
 
         card = new Card(
                 "받은 피해중 벽에게 받은 데미지 (%)가 높음",
-                "벽을 탐구하는 자",
+                "벽에 좀 부딪혔어요..",
                 false,
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamagedByWall(30, false));
+        card.conditions.Add(new CardCondition_DamagedByWall(40, false));
         card.conditions.Add(new CardCondition_DamagedByWall(20, true));
         cardList.Add(card);
 
         // 복합
         card = new Card(
-                "신중한 그대",
-                "신중한 그대",
-                true,
-                goodFontColor,
-                goodColor,
-                new List<CardCondition>());
-        card.conditions.Add(new CardCondition_HitRate(60, true));
-        card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.7f, false));
-        card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.4f, true));
-        cardList.Add(card);
-
-        card = new Card(
-                "소심쟁이",
-                "쏘고 있는거 맞지??\n상대에 비해 사용에너지 적음",
+                "레이저를 굉장히 조금만 쏨",
+                "초 에너지 절약주의자",
                 false,
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.5f, false));
+        card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.2f, false));
         cardList.Add(card);
     }
 }
