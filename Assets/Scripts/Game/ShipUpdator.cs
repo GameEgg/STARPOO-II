@@ -153,7 +153,7 @@ public class ShipUpdator : GameSyncObject {
         if (_ship.hp.value <= 0)
         {
             _ship.alive.value = false;
-            _rigidbody.transform.position = Vector2.up * 500;//레이더에서 해제하려면 OnTriggerExit 특성상 위치를 이동시킬 필요가 있습니다.
+            _rigidbody.transform.position = Vector2.up * 2000;//레이더에서 해제하려면 OnTriggerExit 특성상 위치를 이동시킬 필요가 있습니다.
             
             foreach(var scannedEnemy in scannedEnemies)
             {
