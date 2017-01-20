@@ -11,6 +11,10 @@ var new_arr_detected_already_enemy_ships = [];
 
 function update() {
     loggable = true;
+//    myShips[0].setRotSpeed(360);
+    var p = polarFrom(myShips[0],{x:0,y:0});
+    log2(p.rot);
+    return;
     if (!b_init) {
         init();
     }
@@ -144,8 +148,7 @@ function log2(data){
 function focusTarget (myShip, target) {
     var p = polarFrom(myShip, target);
     if(myShip.id % 1000 == 6){
-        log2("p.rot(" + p.rot + ") myShip(" + myShip.x.toFixed(1) + "," + myShip.y.toFixed(1) + ")"
-        + " target(" + target.x.toFixed(1) + "," + target.y.toFixed(1) + ")" );
+        //log2("p.rot(" + p.rot + ") myShip(" + myShip.x.toFixed(1) + "," + myShip.y.toFixed(1) + ")" + " target(" + target.x.toFixed(1) + "," + target.y.toFixed(1) + ")" );
     }
     myShip.setRotSpeed(Math.min(p.rot * 60, 360));
     myShip.setSpeed((180 - Math.abs(p.rot)) / 180 * shipMaxSpeed);
