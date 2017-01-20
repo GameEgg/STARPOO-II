@@ -21,6 +21,9 @@ public class UIRoom : MonoBehaviour {
     [SerializeField]
     Button btnPlay; // 추후 멀티플레이시 방장이 아니라면 이걸 숨겨야함
 
+    [SerializeField]
+    AudioClip bgm;
+
     Coroutine updateVSColorCoroutine;
     int selectedCount;
 
@@ -78,6 +81,8 @@ public class UIRoom : MonoBehaviour {
                 StartCoroutine(SetRoomTitleAsClient());
             }
         }
+
+        BGMManager.instance.Play(bgm);
     }
 
     void ClearHistory(){

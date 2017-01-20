@@ -508,6 +508,7 @@ MonoBehaviour:
   shipCountChanger: {fileID: 958595807}
   btnBack: {fileID: 2049901403}
   btnPlay: {fileID: 683859934}
+  bgm: {fileID: 8300000, guid: dabe82abcbb71684891548f38d8c33cb, type: 3}
 --- !u!1 &354748536
 GameObject:
   m_ObjectHideFlags: 0
