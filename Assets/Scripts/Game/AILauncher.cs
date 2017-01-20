@@ -286,6 +286,7 @@ public class MyShipJSObject : ShipJSObject
         base.UpdateProperties();
         ExportValue("spd",_ship.spd);
         ExportValue("rotSpd",_ship.rotSpd);
+        ExportValue("isDetected",(_ship.scanned > 0));
     }
 }
 
