@@ -12,10 +12,11 @@ public class Card
     public Color backgroundColor;
     public List<CardCondition> conditions;
 
-    public Card(string name, string text, Color textColor, Color background, List<CardCondition> conditions)
+    public Card(string name, string text, bool isGood, Color textColor, Color background, List<CardCondition> conditions)
     {
         cardName = name;
         this.text = text;
+        this.isGood = isGood;
         this.textColor = textColor;
         backgroundColor = background;
         this.conditions = conditions;

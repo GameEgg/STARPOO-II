@@ -121,6 +121,7 @@ public static class CardList
         card = new Card(
                     "절대자",
                     "당신은 혹시 신?",
+                    true,
                     Color.gray,
                     Color.white,
                     new List<CardCondition>());
@@ -132,16 +133,40 @@ public static class CardList
         card = new Card(
                 "압도적인 승리",
                 "압도적인 힘으로!",
+                true,
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HP(90, true));
         cardList.Add(card);
 
+        card = new Card(
+                "남은 피 높음",
+                "양학했습니다 ^^",
+                true,
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_HP(50, true));
+        card.conditions.Add(new CardCondition_HP(90, false));
+        cardList.Add(card);
+
+        card = new Card(
+                "남은 피 낮음",
+                "어휴 겨~우 이겼네",
+                true,
+                goodFontColor,
+                goodColor,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_HP(0.1f, true));
+        card.conditions.Add(new CardCondition_HP(10, false));
+        cardList.Add(card);
+
         // 순수 명중률 관련
         card = new Card(
                 "매우 높은 명중률",
                 "백발백중",
+                true,
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
@@ -151,6 +176,7 @@ public static class CardList
         card = new Card(
                 "높은 명중률",
                 "명사수",
+                true,
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
@@ -161,6 +187,7 @@ public static class CardList
         card = new Card(
                 "낮은 명중률",
                 "어딜보고 쏘는 거야?",
+                false,
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
@@ -171,6 +198,7 @@ public static class CardList
         card = new Card(
                 "명중률 한자리",
                 "손가락은 움직일 줄 아는거지?",
+                false,
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
@@ -181,6 +209,7 @@ public static class CardList
         card = new Card(
                 "팀 학살자",
                 "팀 학살자",
+                false,
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
@@ -191,6 +220,7 @@ public static class CardList
         card = new Card(
                 "적팀에게 가한 피해(%) 높음",
                 "널 위해 발사했어ㅎ",
+                true,
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
@@ -201,8 +231,9 @@ public static class CardList
         card = new Card(
                 "벽에게 가한 피해(%) 높음",
                 "물반 고기반",
-                goodFontColor,
-                goodColor,
+                false,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_DamageToWall(50, true));
         card.conditions.Add(new CardCondition_DamageToWall(70, false));
@@ -211,8 +242,9 @@ public static class CardList
         card = new Card(
                 "벽에게 가한 피해(%) 매우 높음",
                 "너 일부러 벽만 쏘지?",
-                goodFontColor,
-                goodColor,
+                false,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_DamageToWall(70, true));
         cardList.Add(card);
@@ -221,6 +253,7 @@ public static class CardList
         card = new Card(
                 "신중한 그대",
                 "신중한 그대",
+                true,
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
@@ -232,8 +265,9 @@ public static class CardList
         card = new Card(
                 "소심쟁이",
                 "쏘고 있는거 맞지??\n상대에 비해 사용에너지 적음",
-                goodFontColor,
-                goodColor,
+                false,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.5f, false));
         cardList.Add(card);
