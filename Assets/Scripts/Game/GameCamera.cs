@@ -15,10 +15,19 @@ public class GameCamera : GameSyncObject {
     Vector3 originPos;
     float delay = 0;
 
+    Camera cam;
+    public float zoomSpeed;
+    public float moveSpeed;
+
     public override void GameInit()
     {
         base.GameInit();
         originPos = transform.position;
+    }
+
+    void Start()
+    {
+        cam = GetComponent<Camera>();
     }
 
     void Update()
@@ -31,6 +40,7 @@ public class GameCamera : GameSyncObject {
         {
             MoveCameraIndex(currentIndex - 1);
         }
+        
     }
 
     void LateUpdate()
@@ -43,7 +53,15 @@ public class GameCamera : GameSyncObject {
 
         if(currentIndex == -1)
         {
-            transform.position = originPos;
+            transform.Translate(Vector3.forward * zoomSpeed * Input.GetAxis("Mouse ScrollWheel"));
+            //cam.orthographicSize -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
+            if (Input.GetMouseButton(0))
+            {
+                transform.Translate(Vector3.left * Input.GetAxis("Mouse X") * moveSpeed * -transform.position.z);
+                transform.Translate(Vector3.down * Input.GetAxis("Mouse Y") * moveSpeed * -transform.position.z);
+            }
+            originPos = transform.position;
         }
         else if(_ship != null)
         {
@@ -52,9 +70,13 @@ public class GameCamera : GameSyncObject {
                 StartCoroutine(MoveToOrigin());
             }
             else{
-                var forward = new Vector3(Mathf.Cos(_ship.shootingRad), Mathf.Sin(_ship.shootingRad), 0.1f);
+                Vector3 forward;
+                if (_ship.isCharging.value)
+                    forward = new Vector3(Mathf.Cos(_ship.shootingRad), Mathf.Sin(_ship.shootingRad), 0.1f);
+                else
+                    forward = new Vector3(Mathf.Cos(_ship.rad + _ship.rotSpd*0.0002f), Mathf.Sin(_ship.rad + _ship.rotSpd * 0.0002f), 0.1f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(forward, -Vector3.forward),0.5f);
-                transform.position = Vector3.Lerp(transform.position, new Vector3(_ship.x, _ship.y, -1) - forward*5, 0.5f);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(_ship.x, _ship.y, -15) - forward*50, 0.5f);
             }
         }   
     }
@@ -64,6 +86,7 @@ public class GameCamera : GameSyncObject {
         if(index == -1)
         {
             transform.rotation = Quaternion.identity;
+            transform.position = originPos;
         }
         else if(index == -2)
         {

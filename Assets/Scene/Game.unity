@@ -1684,7 +1684,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1500
+  far clip plane: 2500
   field of view: 75
   orthographic: 0
   orthographic size: 5
@@ -1725,6 +1725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1ce428ec4bdb0458c5b915a354515a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoomSpeed: 200
+  moveSpeed: 0.07
 --- !u!1 &671531269
 GameObject:
   m_ObjectHideFlags: 0
