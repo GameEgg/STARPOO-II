@@ -3,18 +3,17 @@
 function update(){
 	for (var i = myShips.length - 1; i >= 0; i--) {
 		var ship = myShips[i]
-		ship.shoot()
-		ship.setSpeed(5)
+		ship.setSpeed(shipMaxSpeed)
 
 		var goodR = 20;
-		var goodAngle = 90;
+		var goodRot = 90;
 
 		var p = polarFrom(ship,{x:0,y:0});
 
 		if(p.r > goodR){
 			goodAngle = 0;
 		}
-		ship.setAngleSpeed((p.angle-goodAngle)*50);
+		ship.setRotSpeed((p.rot-goodRot)/dt);
 	}
 }
 
