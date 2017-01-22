@@ -183,8 +183,9 @@ public class CardCondition_DamagedByEnemy : CardCondition
 
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
-        float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
-        double var = Math.Round(fleetHistory.damagedByEnemy / (totalHP - fleetHistory.restHP), 4) * 100;
+		float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
+		float damagedHP = totalHP - fleetHistory.restHP;
+		double var = Math.Round(fleetHistory.damagedByEnemy / damagedHP, 4) * 100;
         if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
@@ -203,7 +204,8 @@ public class CardCondition_DamagedByAlly : CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
-        double var = Math.Round(fleetHistory.damagedByAlly / (totalHP - fleetHistory.restHP), 4) * 100;
+		float damagedHP = totalHP - fleetHistory.restHP;
+		double var = Math.Round(fleetHistory.damagedByAlly / damagedHP, 4) * 100;
         if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
@@ -222,7 +224,8 @@ public class CardCondition_DamagedByWall: CardCondition
     override public bool IsSatisfyCondition(FleetHistory fleetHistory)
     {
         float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
-        double var = Math.Round((totalHP - fleetHistory.restHP -fleetHistory.damagedByEnemy - fleetHistory.damagedByAlly) / totalHP, 4) * 100;
+		float damagedHP = totalHP - fleetHistory.restHP;
+		double var = Math.Round((damagedHP - fleetHistory.damagedByEnemy - fleetHistory.damagedByAlly) / damagedHP, 4) * 100;
         if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;
