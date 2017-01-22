@@ -47,7 +47,7 @@ public class AILauncher : MonoBehaviour {
         engine.SetGlobalValue("chargingSpeed", engine.Number.Construct(GameConsts.chargingSpeed));
         engine.SetGlobalValue("shootingDelay", engine.Number.Construct(GameConsts.shootingDelay));
         engine.SetGlobalValue("maxChargingPower", engine.Number.Construct(GameConsts.maxChargingPower));
-        engine.SetGlobalValue("groundRadius", engine.Number.Construct(GameVariables.groundSize.value));
+        engine.SetGlobalValue("groundRadius", engine.Number.Construct(GameVariables.groundSize.value)); 
     }
 
     /// <summary>
@@ -171,11 +171,11 @@ public class AILauncher : MonoBehaviour {
     }
     public double Distance(ObjectInstance a, ObjectInstance b)
     {
-        double x1 = (double)a["x"];
-        double y1 = (double)a["y"];
+        double x1 = a.GetDouble("x");
+        double y1 = a.GetDouble("y");
 
-        double x2 = (double)b["x"];
-        double y2 = (double)b["y"];
+        double x2 = b.GetDouble("x");
+        double y2 = b.GetDouble("y");
 
         double x = x1 - x2;
         double y = y1 - y2;
