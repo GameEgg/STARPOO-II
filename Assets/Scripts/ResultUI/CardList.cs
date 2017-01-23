@@ -238,7 +238,7 @@ public class CardCondition_DamagedByWall: CardCondition
     {
         float totalHP = GameConsts.maxShipHp * GameSettings.shipCount;
 		float damagedHP = totalHP - fleetHistory.restHP;
-		double var = Math.Round((damagedHP - fleetHistory.damagedByEnemy - fleetHistory.damagedByAlly) / damagedHP, 4) * 100;
+		double var = Math.Round((damagedHP - fleetHistory.damagedByEnemy - fleetHistory.damagedByAlly) / totalHP, 4) * 100;
         if (expect == (var > value) || (expect && (var == value)))
             return true;
         return false;

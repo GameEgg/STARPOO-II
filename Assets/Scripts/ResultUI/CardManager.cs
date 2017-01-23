@@ -118,7 +118,6 @@ public static class CardList
             card.conditions.Add(new CardCondition_HP(100, true));
             card.conditions.Add(new CardCondition_HitRate(100, true));
             cardList.Add(card);
-        
         */
 
         card = new Card(
@@ -169,7 +168,7 @@ public static class CardList
 
         card = new Card(
                 "남은 피 낮음",
-                "죽은 함선중 절반이 자살함",
+                "사망 원인 1위.. 자살",
                 bad,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HP(0.1f, true));
@@ -214,10 +213,19 @@ public static class CardList
         // 팀킬
         card = new Card(
                 "아군 학살자",
-                "아군 학살자",
+                "전문적인 팀킬러",
                 bad,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamagedByAlly(50, true));
+        card.conditions.Add(new CardCondition_DamageToAlly(70, true));
+        cardList.Add(card);
+
+        card = new Card(
+                "아군 학살자",
+                "전문적인 팀킬러",
+                bad,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToAlly(70, false));
+        card.conditions.Add(new CardCondition_DamageToAlly(50, true));
         cardList.Add(card);
 
         card = new Card(
@@ -225,22 +233,31 @@ public static class CardList
                 "아군 그만 좀 때려요",
                 bad,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamagedByAlly(50, false));
-        card.conditions.Add(new CardCondition_DamagedByAlly(10, true));
+        card.conditions.Add(new CardCondition_DamageToAlly(50, false));
+        card.conditions.Add(new CardCondition_DamageToAlly(10, true));
         cardList.Add(card);
 
         card = new Card(
                 "아군 안죽인다",
-                "아군을 거의 안 때림!",
+                "아군을 거의 안 때린자",
                 good,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamagedByAlly(10, false));
+        card.conditions.Add(new CardCondition_DamageToAlly(10, false));
+        card.conditions.Add(new CardCondition_DamageToAlly(0.0001f, true));
+        cardList.Add(card);
+
+        card = new Card(
+                "아군 안죽인다",
+                "최신형 아군 식별기 장착",
+                good,
+                new List<CardCondition>());
+        card.conditions.Add(new CardCondition_DamageToAlly(0.0001f, false));
         cardList.Add(card);
 
         // 적킬
         card = new Card(
                 "적팀에게 가한 피해(%) 높음",
-                "널 위해 발사했어ㅎ",
+                "전문적인 킬러",
                 good,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_DamageToEnemy(70, true));
