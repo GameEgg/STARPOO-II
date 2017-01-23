@@ -113,8 +113,14 @@ public class ShipRenderer : MonoBehaviour
         }
     }
 
-    void Shooted(Vector2 pos)
+    void Shooted(Vector2 pos){
+        StartCoroutine(Shooted2(pos));
+    }
+
+    IEnumerator Shooted2(Vector2 pos)
     {
+        yield return null;
+
         foreach (var p in chargingParticles)
         {
             p.gameObject.SetActive(false);
@@ -127,14 +133,16 @@ public class ShipRenderer : MonoBehaviour
 
         var rad = _ship.shootingRad;
         var direction = new Vector3(Mathf.Cos(rad), Mathf.Sin(rad),0);
-        laser.Show(transform.position + direction * 2, pos, _ship.shootingPower);
+        laser.Show(transform.position + direction * 30, pos, _ship.shootingPower);
 
-
+        yield return null;
+        yield return null;
+        /*
         foreach (var p in laserHitParticles)
         {
-            p.transform.position = new Vector3(pos.x,pos.y,0) - direction*2;
+            p.transform.position = new Vector3(pos.x,pos.y,0) - direction*18;
             p.Play();
-        }
+        }*/
     }
 
     void IsCharging(bool value)

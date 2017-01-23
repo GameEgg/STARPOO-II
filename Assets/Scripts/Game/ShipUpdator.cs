@@ -33,9 +33,9 @@ public class ShipUpdator : GameSyncObject {
     {
         if (_ship.alive.value)
         {
-            UpdateShooting();
             UpdateRotation();
             UpdatePosition();
+            UpdateShooting();
             CheckDead();
         }
         else
