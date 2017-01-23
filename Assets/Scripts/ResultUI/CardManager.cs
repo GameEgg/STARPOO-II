@@ -333,7 +333,7 @@ public static class CardList
 			goodFontColor,
 			goodColor,
 			new List<CardCondition>());
-		card.conditions.Add(new CardCondition_TotalUseEnerge(0.1, false));
+		card.conditions.Add(new CardCondition_TotalUseEnerge(0.1f, false));
 		cardList.Add(card);
 	}
 }
