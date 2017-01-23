@@ -120,7 +120,7 @@ public static class CardList
 
         card = new Card(
                 "절대자",
-                "풀피로 완벽하게 승리",
+                "완벽한 승리.. 혹시 신이세요?",
                 true,
                 goodFontColor,
                 goodColor,
@@ -148,7 +148,7 @@ public static class CardList
                 goodFontColor,
                 goodColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_HP(50, true));
+        card.conditions.Add(new CardCondition_HP(70, true));
         card.conditions.Add(new CardCondition_HP(90, false));
         cardList.Add(card);
 
@@ -167,16 +167,16 @@ public static class CardList
                 "남은 피 낮음",
                 "함선의 절반이 자살함",
                 true,
-                goodFontColor,
-                goodColor,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_HP(0.1f, true));
-        card.conditions.Add(new CardCondition_HP(10, false));
+		card.conditions.Add(new CardCondition_DamagedByWall(50, true));
         cardList.Add(card);
 
         // 순수 명중률 관련
         card = new Card(
-                "명중률100%",
+                "명중률 100%",
                 "명중률 100%",
                 true,
                 goodFontColor,
@@ -225,18 +225,28 @@ public static class CardList
                 badFontColor,
                 badColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamageToAlly(50, true));
-        card.conditions.Add(new CardCondition_DamageToAlly(50, true));
+		card.conditions.Add(new CardCondition_DamagedByAlly(50, true));
         cardList.Add(card);
+
+		card = new Card(
+			"아군 안죽인다",
+			"아군 그만 좀 때려요",
+			true,
+			badFontColor,
+			badColor,
+			new List<CardCondition>());
+		card.conditions.Add(new CardCondition_DamagedByAlly(50, false));
+		card.conditions.Add(new CardCondition_DamagedByAlly(10, true));
+		cardList.Add(card);
 
         card = new Card(
                 "아군 안죽인다",
                 "아군을 거의 안 때림!",
                 true,
-                goodFontColor,
-                goodColor,
+                badFontColor,
+                badColor,
                 new List<CardCondition>());
-        card.conditions.Add(new CardCondition_DamageToAlly(15, false));
+		card.conditions.Add(new CardCondition_DamagedByAlly(10, false));
         cardList.Add(card);
 
         // 적킬
@@ -250,7 +260,7 @@ public static class CardList
         card.conditions.Add(new CardCondition_DamageToEnemy(70, true));
         cardList.Add(card);
 
-        // 벽킬
+        // 벽에게 가한 데미지
         card = new Card(
                 "벽에게 가한 피해(%) 높음",
                 "저는 벽 쏘는걸 좋아합니다",
@@ -282,6 +292,7 @@ public static class CardList
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_DamagedByWall(70, true));
         cardList.Add(card);
+
         card = new Card(
                 "받은 피해중 벽에게 받은 데미지 (%)가 매우 높음",
                 "자살 매니아",
@@ -295,7 +306,7 @@ public static class CardList
 
         card = new Card(
                 "받은 피해중 벽에게 받은 데미지 (%)가 높음",
-                "벽에 좀 부딪혔어요..",
+                "벽을 사랑하기 시작하였다...",
                 false,
                 badFontColor,
                 badColor,
@@ -304,7 +315,7 @@ public static class CardList
         card.conditions.Add(new CardCondition_DamagedByWall(20, true));
         cardList.Add(card);
 
-        // 복합
+        // 사용에너지
         card = new Card(
                 "레이저를 굉장히 조금만 쏨",
                 "초 에너지 절약주의자",
@@ -314,6 +325,16 @@ public static class CardList
                 new List<CardCondition>());
         card.conditions.Add(new CardCondition_TotalUseEnerge(BattleHistory.maxTotalEnergy * 0.2f, false));
         cardList.Add(card);
-    }
+
+		card = new Card(
+			"레이저를 안씀",
+			"Peace Keeper",
+			false,
+			goodFontColor,
+			goodColor,
+			new List<CardCondition>());
+		card.conditions.Add(new CardCondition_TotalUseEnerge(0.1, false));
+		cardList.Add(card);
+	}
 }
 
