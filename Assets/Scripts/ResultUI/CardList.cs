@@ -12,13 +12,13 @@ public class Card
     public Color backgroundColor;
     public List<CardCondition> conditions;
 
-    public Card(string name, string text, bool isGood, Color textColor, Color background, List<CardCondition> conditions)
+    public Card(string name, string text, CardColor cardColor, List<CardCondition> conditions)
     {
         cardName = name;
         this.text = text;
-        this.isGood = isGood;
-        this.textColor = textColor;
-        backgroundColor = background;
+        this.isGood = cardColor.isGood;
+        this.textColor = cardColor.fontColor;
+        backgroundColor = cardColor.color;
         this.conditions = conditions;
     }
 
@@ -30,6 +30,19 @@ public class Card
                 return false;
         }
         return true;
+    }
+}
+
+public class CardColor 
+{
+    public Color color;
+    public Color fontColor;
+    public bool isGood;
+
+    public CardColor(Color color, Color fontColor, bool isGood) {
+        this.color = color;
+        this.fontColor = fontColor;
+        this.isGood = isGood;
     }
 }
 
