@@ -35,3 +35,4 @@ Javascript로 작성한 AI Script를 통해 자신의 함대를 조종하여 적
 
 ## # [Script 에 제공되는 API](https://github.com/GameEgg/STARPOO-II/wiki/Script-API)
 
+본문 제목을 클릭하여 확인할 수 있습니다.
